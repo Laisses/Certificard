@@ -399,12 +399,12 @@
 				var tagResultado = document.querySelector("#resultado");
 	
 				if (tiraAcentos(resposta) === tiraAcentos(ditadoSorteado.resposta)) {
-					tagResultado.innerHTML = "Você acertou!";				
+					tagResultado.innerHTML = "Correto!";				
 					acertos++;
 				} else if (resposta === "") {
 					alert("Faltou digitar a resposta.");
 				} else {
-					tagResultado.innerHTML = "Você errou.";				
+					tagResultado.innerHTML = "Oooooops! Não foi dessa vez!";				
 				}
 			}
 	
