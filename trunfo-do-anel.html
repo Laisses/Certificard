@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="pt">
+	<head>
+    	<meta charset="UTF-8">
+    	<meta name="viewport" value="width=device-width, initial-scale=1">
+      
+      <title> Trunfo do Anel </title>
+        
+	   <style>
+	    	body {
+		   	font-family: 'Roboto Mono', monospace;
+		   	min-height: 854px;
+			   background-image: url('https://www.alura.com.br/assets/img/imersoes/dev-2021/dia-07-super-trunfo-bg.png');
+			   background-color: #000000;
+			   background-size: cover;
+			   background-position: center top;
+			   background-repeat: no-repeat;
+			   padding-bottom: 20vh;
+			}
+
+			.container {
+			   text-align: center;
+			   padding: 20px;
+			}
+
+			.page-title {
+			   color: #ffffff;
+			   margin: 5px 0;
+			}
+
+			button {
+			   width: 10rem;
+			   max-width: 10rem;
+			   padding: .8rem 1.5rem;
+			   margin: 2rem auto;
+			   border-radius: 5px;
+			   border: none;
+			   font-size: 1rem;
+			}
+
+			h2 {
+			   color: white;
+			}
+
+			h3 {
+				color:white;
+			}
+
+			#carta-jogador, #carta-maquina {
+			   width: 360px;
+			   height: 500px;
+			   overflow: auto;
+			   border-radius: 10px;
+			   margin-bottom: 20px;
+			   margin: 0 auto;
+			   display: flex;
+			   align-items: flex-end;
+			   position: relative;
+			   background-size: 350px 300px;
+			   background-repeat: no-repeat;
+			   background-position-x: 5px;
+			   background-position-y: 10px;
+			   border-radius: 33px;
+			}
+
+			.esconder {
+				display: none;
+			}
+
+			#carta-jogador h3 {
+			   text-align: center;
+			}
+
+			.carta-imagem {
+			   border: 1px solid black;
+			   height: 100px;
+			   margin: 10px;
+			}
+
+			.carta-imagem img {
+			   width: 100%;
+			   height: 100%;
+			}
+
+			.carta-status {
+			   height: 160px;
+			   margin: 2rem;
+			   color: white;
+			   z-index: 2;
+			   text-align: left;
+			}
+
+			.carta-status input {
+			   margin: 8px 10px;
+			}
+
+			.carta-status p {
+				margin: 8px 10px;
+			}
+
+			.opcoes {
+			   color: white;
+			}
+
+			.resultado-final {
+				color:white;
+				font-size: 2rem;
+				text-transform: uppercase;
+				font-weight: bolder;
+				padding: 1rem;
+				border: 2px solid black;
+				background-color: black;
+			}	
+
+			.--spacing {
+				margin-left: 2.5rem;
+			}
+
+			
+			form {
+				display: flex;
+				flex-direction: column;
+			}
+			
+
+			.wrapper {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.carta-subtitle {
+				z-index: 2;
+				position: absolute;
+				top: 0;
+				left: 37px;
+				font-weight: 800;				
+				text-transform: uppercase;				
+			}
+
+			#cartas {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			#placar, #quantidade-cartas {
+				color: white;
+			}
+
+		</style>
+
+   </head>
+
+   <body>
+
+      	<div class="container">
+      		<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-super-trunfo.png" class="page-logo" alt="">
+      		<h1 class="page-title">Super Trunfo</h1>
+
+	      	<button id="btnSortear">
+	      		Sortear Cartas
+	      	</button>
+
+	      	<form id="form">
+	      		<h2>Escolha o seu atributo</h2>
+	      		<div class="wrapper">
+	      			<div id="placar"></div>
+                	<div id="quantidade-cartas"></div>
+                	<div id="cartas">
+                    	<div id="carta-jogador" class="carta"></div>
+                    	<div id="carta-maquina" class="carta"></div>
+                	</div>	      			
+	      		</div>		
+
+	      		<div id="resultado"></div>    		
+      		
+	      	</form>	  
+
+	      	<button id="btnProximaRodada" onclick="proximaRodada()" disabled="true">
+	      			Próxima Rodada
+	      		</button>  
+
+	      	<button id="btnJogar">
+  				Jogar
+  			</button>	
+		</div>
+
+
+		   <!--<div class="opcoes esconder" id="opcoes">
+
+	      	<input type="radio" name="atributo" value="resiliencia" />
+	      	<label for="resiliencia">Resiliência</label><br />
+
+				<input type="radio" name="atributo" value="forca" />
+				<label for="forca">Força</label><br />
+
+				<input type="radio" name="atributo" value="poder" />
+				<label for="poder">Poder</label><br />
+
+				<input type="radio" name="atributo" value="agilidade" />
+				<label for="agilidade">Agilidade</label><br />
+
+				<input type="radio" name="atributo" value="coragem" />
+				<label for="coragem">Coragem</label><br />
+
+	      </div>
+	   -->
+
+	   <script>
+
+	   	//Cartas dos Homens
+
+	   		var cartaBeren = {
+    			nome: "Beren Erchamion",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Edain",
+	    		imagem: "https://static.wikia.nocookie.net/lotr/images/0/03/Eve_Ventrue_-_Beren_Camlost.jpg/revision/latest/scale-to-width-down/824?cb=20201030175755",
+	    		atributos: {
+	    			resiliencia: 80,
+		    		forca: 100,
+		    		poder: 60,
+		    		agilidade: 50,
+		    		coragem: 90
+	    		}    		
+	    	}
+
+	    	var cartaElendil = {
+	    		nome: "Elendil",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Numenoriano",
+	    		imagem: "http://tolkiengateway.net/w/images/thumb/d/d8/Kimberly_-_Elendil.jpg/447px-Kimberly_-_Elendil.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 90,
+		    		poder: 30,
+		    		agilidade: 50,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaIsildor = {
+	    		nome: "Isildor",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Numenoriano",
+	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0df9c88c-31ea-4a90-80a3-ff05e799d307/db6w8ud-731cd4c9-0149-47ed-b9d1-3b7c4a719cc2.jpg/v1/fill/w_1024,h_1590,q_75,strp/isildur_by_samo_art_db6w8ud-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xNTkwIiwicGF0aCI6IlwvZlwvMGRmOWM4OGMtMzFlYS00YTkwLTgwYTMtZmYwNWU3OTlkMzA3XC9kYjZ3OHVkLTczMWNkNGM5LTAxNDktNDdlZC1iOWQxLTNiN2M0YTcxOWNjMi5qcGciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.d9r5aLm9bt5jGKCmvhy8eQUt_ffER0St1F4DE1o_RQw",
+	    		atributos: {
+	    			resiliencia: 40,
+		    		forca: 85,
+		    		poder: 10,
+		    		agilidade: 60,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaBard = {
+	    		nome: "Bard, the Bowman",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Homem do Lago",
+	    		imagem: "https://static.wikia.nocookie.net/lotr/images/3/3d/Bard_the_Bowman.jpg/revision/latest/scale-to-width-down/581?cb=20121207112201",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 50,
+		    		poder: 20,
+		    		agilidade: 60,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaAragorn = {
+	    		nome: "Aragorn (Elessar)",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Dúnedain",
+	    		imagem: "https://static.wikia.nocookie.net/rpg-rise-of-the-titans/images/c/cb/Aragooorn.jpg/revision/latest/scale-to-width-down/450?cb=20201120181515&path-prefix=pt-br",
+	    		atributos: {
+	    			resiliencia: 70,
+		    		forca: 80,
+		    		poder: 60,
+		    		agilidade: 50,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaDenathor = {
+	    		nome: "Denethor II",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Gondoriano",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Denethor.jpg",
+	    		atributos: {
+	    			resiliencia: 20,
+		    		forca: 40,
+		    		poder: 50,
+		    		agilidade: 10,
+		    		coragem: 30
+	    		}    		
+	    	}
+
+	    	var cartaBoromir = {
+	    		nome: "Boromir",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Gondoriano",
+	    		imagem: "http://tolkiengateway.net/w/images/thumb/2/28/Donato_Giancola_-_Boromir.jpg/250px-Donato_Giancola_-_Boromir.jpg",
+	    		atributos: {
+	    			resiliencia: 40,
+		    		forca: 85,
+		    		poder: 20,
+		    		agilidade: 50,
+		    		coragem: 80
+	    		}
+	    	}
+
+	    	var cartaFaramir = {
+	    		nome: "Faramir",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Gondoriano",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Faramir.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 80,
+		    		poder: 20,
+		    		agilidade: 50,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaTheoden = {
+	    		nome: "Théoden",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Rohirrim",
+	    		imagem: "https://i.imgur.com/BCwiJR4.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 70,
+		    		poder: 30,
+		    		agilidade: 55,
+		    		coragem: 60
+	    		}    		
+	    	}
+
+	    	var cartaEomer = {
+	    		nome: "Éomer",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Rohirrim",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Eomer.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 70,
+		    		poder: 35,
+		    		agilidade: 60,
+		    		coragem: 60
+	    		}    	
+	    	}
+
+	    	var cartaEowyn = {
+	    		nome: "Éowyn",
+	    		raça: "Raça dos Homens",
+	    		tipo: "Rohirrim",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Eowyn.jpg",
+	    		atributos: {
+	    			resiliencia: 70,
+		    		forca: 60,
+		    		poder: 50,
+		    		agilidade: 60,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    // Cartas dos Hobbits //
+
+	    	var cartaFrodo = {
+	    		nome: "Frodo Baggins",
+	    		raça: "Hobbit",
+	    		tipo: "Condado",
+	    		imagem: "https://i.pinimg.com/564x/c8/b6/8d/c8b68d3a2abc86f4ce57f0d4a9d88d5f.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 20,
+		    		poder: 50,
+		    		agilidade: 30,
+		    		coragem: 85
+	    		}    		
+	    	}
+
+	    	var cartaBilbo = {
+	    		nome: "Bilbo Baggins",
+	    		raça: "Hobbit",
+	    		tipo: "Condado",
+	    		imagem: "https://designrshub-designrshub.netdna-ssl.com/wp-content/uploads/2013/03/bilbo-baggins-07.jpg",
+	    		atributos: {
+	    			resiliencia: 30,
+		    		forca: 20,
+		    		poder: 50,
+		    		agilidade: 30,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaSam = {
+	    		nome: "Samwise (Sam) Gamgee",
+	    		raça: "Hobbit",
+	    		tipo: "Condado",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Sam-Gamgee.jpg",
+	    		atributos: {
+	    			resiliencia: 30,
+		    		forca: 25,
+		    		poder: 30,
+		    		agilidade: 40,
+		    		coragem: 100
+	    		}    		
+	    	}
+
+	    	var cartaPippin = {
+	    		nome: "Peregrin (Pippin) Tûk",
+	    		raça: "Hobbit",
+	    		tipo: "Condado",
+	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Pippin.jpg",
+	    		atributos: {
+	    			resiliencia: 30,
+		    		forca: 20,
+		    		poder: 30,
+		    		agilidade: 55,
+		    		coragem: 80
+	    		}    		
+	    	}
+
+	    	var cartaMerry = {
+	    		nome: "Meriadoc (Merry) Brandebuque",
+	    		raça: "Hobbit",
+	    		tipo: "Condado",
+	    		imagem: "https://i.pinimg.com/originals/13/df/41/13df4136550a26a32aa556427ad6fa6a.jpg",
+	    		atributos: {
+	    			resiliencia: 30,
+		    		forca: 20,
+		    		poder: 30,
+		    		agilidade: 50,
+		    		coragem: 80
+	    		}    		
+	    	}
+
+
+	    // Cartas dos Anões //     
+
+	    	var cartaDurin = {
+	    		nome: "Durin I",
+	    		raça: "Anão",
+	    		tipo: "Moria",
+	    		imagem: "https://i.ytimg.com/vi/jAyaTOYNqfQ/hqdefault.jpg",
+	    		atributos: {
+	    			resiliencia: 80,
+		    		forca: 45,
+		    		poder: 50,
+		    		agilidade: 30,
+		    		coragem: 50
+	    		}    		
+	    	}
+
+	    	var cartaBalin = {
+	    		nome: "Balin",
+	    		raça: "Anão",
+	    		tipo: "Moria",
+	    		imagem: "https://i.pinimg.com/564x/c7/36/4d/c7364d37576452867737a46c1044e961.jpg",
+	    		atributos: {
+	    			resiliencia: 90,
+		    		forca: 50,
+		    		poder: 30,
+		    		agilidade: 30,
+		    		coragem: 60
+	    		}    		
+	    	}
+
+	    	var cartaThror = {
+	    		nome: "Thrór",
+	    		raça: "Anão",
+	    		tipo: "Erebor",
+	    		imagem: "https://static.wikia.nocookie.net/lotr/images/e/e4/King_Thror_concept_art.jpg/revision/latest/scale-to-width-down/230?cb=20170127120108",
+	    		atributos: {
+	    			resiliencia: 80,
+		    		forca: 50,
+		    		poder: 20,
+		    		agilidade: 30,
+		    		coragem: 40
+	    		}    	
+	    	}
+
+	    	var cartaThorin = {
+	    		nome: "Thorin (Escudo de Carvalho) II",
+	    		raça: "Anão",
+	    		tipo: "Erebor",
+	    		imagem: "https://i.pinimg.com/564x/57/bf/e5/57bfe54632a6e83ef2664550a4ddd6e0.jpg",
+	    		atributos: {
+	    			resiliencia: 100,
+		    		forca: 65,
+		    		poder: 10,
+		    		agilidade: 30,
+		    		coragem: 65
+	    		}    		
+	    	}
+
+	    	var cartaGimli = {
+	    		nome: "Gimli",
+	    		raça: "Anão",
+	    		tipo: "Cavernas Cintilantes",
+	    		imagem: "https://cafans.b-cdn.net/images/Category_62552/subcat_111494/Matt%20Stewart%20Gimli%20Forty%20Two.jpg",
+	    		atributos: {
+	    			resiliencia: 85,
+		    		forca: 60,
+		    		poder: 35,
+		    		agilidade: 30,
+		    		coragem: 55
+	    		}    		
+	    	}
+
+	    // Cartas dos Elfos //
+
+	    	var cartaGlorfindel = {
+	    		nome: "Glorfindel",
+	    		raça: "Elfo",
+	    		tipo: "Valinor/Valfenda",
+	    		imagem: "https://static.wikia.nocookie.net/lotr/images/e/ed/Glorfindel-0.jpg/revision/latest/scale-to-width-down/294?cb=20170628041038",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 65,
+		    		poder: 85,
+		    		agilidade: 100,
+		    		coragem: 60
+	    		}    		
+	    	}
+
+	    	var cartaGaladriel = {
+	    		nome: "Galadriel", 
+	    		raça: "Elfo",
+	    		tipo: "Valinor/Lothlórien",
+	    		imagem: "https://external-preview.redd.it/6Dr66Yw5c3mj0JSrKDohZE8VFf3Co7I4S6i3-3ayzqk.jpg?width=960&crop=smart&auto=webp&s=27f87ed1208da3bc6202fd6ab6c5cfe277d3d12d",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 70,
+		    		poder: 95,
+		    		agilidade: 80,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaGilGalad = {
+	    		nome: "Gil-galad",
+	    		raça: "Elfo",
+	    		tipo: "Noldor",
+	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a7564bda-842b-4b8e-a21b-27dab68a6ac6/dbv51vb-13ebf3e2-7e2e-492f-b02f-1baa87b2e9f8.png/v1/fill/w_1024,h_1095,strp/gil_galad_by_kaprriss_dbv51vb-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xMDk1IiwicGF0aCI6IlwvZlwvYTc1NjRiZGEtODQyYi00YjhlLWEyMWItMjdkYWI2OGE2YWM2XC9kYnY1MXZiLTEzZWJmM2UyLTdlMmUtNDkyZi1iMDJmLTFiYWE4N2IyZTlmOC5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.HsXSJEfdK02UjzAUmtDDmzvoNHK7187rQs-m__mYyYk",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 60,
+		    		poder: 65,
+		    		agilidade: 80,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    	var cartaElrond = {
+	    		nome: "Elrond",
+	    		raça: "Elfo",
+	    		tipo: "Valfenda",
+	    		imagem: "https://static.wikia.nocookie.net/rpg-rise-of-the-titans/images/d/da/Elrond.jpg/revision/latest?cb=20200811211215&path-prefix=pt-br",
+	    		atributos: {
+	    			resiliencia: 40,
+		    		forca: 60,
+		    		poder: 70,
+		    		agilidade: 80,
+		    		coragem: 60
+	    		}    		 
+	    	}
+
+	    	var cartaArwen = {
+	    		nome: "Arwen",
+	    		raça: "Elfo",
+	    		tipo: "Valfenda",
+	    		imagem: "http://2.bp.blogspot.com/-oJbwhSgbeyg/UI8SK3VUuNI/AAAAAAAANo8/QNhHJX8F098/s1600/Arwen_MagaliVilleneuve.jpeg",
+	    		atributos: {
+	    			resiliencia: 40,
+		    		forca: 60,
+		    		poder: 50,
+		    		agilidade: 80,
+		    		coragem: 60
+	        	}    		
+	    	}
+
+	    	var cartaLuthien = {
+	    		nome: "Lúthien (Tinuviel)",
+	    		raça: "Elfo",
+	    		tipo: "Doriath",
+	    		imagem: "https://static.wikia.nocookie.net/lotr/images/6/67/Luthien_by_moon_blossom-d2klr1v.png/revision/latest?cb=20131228225501",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 70,
+		    		poder: 70,
+		    		agilidade: 95,
+		    		coragem: 65
+	    		}    		
+	    	}
+
+	    	var cartaLegolas = {
+	    		nome: "Legolas",
+	    		raça: "Elfo",
+	    		tipo: "Ithilien",
+	    		imagem: "https://i.pinimg.com/originals/b3/36/f6/b336f6a988c1bafb8bad0a6c69666d6b.jpg",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 60,
+		    		poder: 50,
+		    		agilidade: 90,
+		    		coragem: 70
+	    		}    		
+	    	}
+
+	    // Cartas dos Magos //
+
+	    	var cartaAlator = {
+	    		nome: "Alator",	
+	    		raça: "Mago (Istari)",
+	    		tipo: "Azul",
+	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5553f261-ab12-41ae-bf6c-3b9da1da16c0/dd5yec0-83d8756a-9a25-4dc5-a78b-c9ee935c2d69.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTU1M2YyNjEtYWIxMi00MWFlLWJmNmMtM2I5ZGExZGExNmMwXC9kZDV5ZWMwLTgzZDg3NTZhLTlhMjUtNGRjNS1hNzhiLWM5ZWU5MzVjMmQ2OS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.6LrMJYg7d2f3mRkwN-Yx6qJxU8-RrhXw0Ux7dwi7pTo",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 50,
+		    		poder: 80,
+		    		agilidade: 50,
+		    		coragem: 50
+	    		}
+	    	}
+
+	    	var cartaPallando = {
+	    		nome: "Pallando",
+	    		raça: "Mago (Istari)",
+	    		tipo: "Azul",
+	    		imagem: "https://i.pinimg.com/originals/81/e5/d1/81e5d1e4cec8a1f1fa706c5f8bffd9fd.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 50,
+		    		poder: 80,
+		    		agilidade: 50,
+		    		coragem: 50
+	    		}    		
+	    	}
+
+	    	var cartaSaruman = {
+	    		nome: "Saruman",
+	    		raça: "Mago (Istari)",
+	    		tipo: "Muitas Cores",
+	    		imagem: "https://pbs.twimg.com/media/EcNOw9nXQAEG9tr.jpg",
+	    		atributos: {
+	    			resiliencia: 50,
+		    		forca: 65,
+		    		poder: 95,
+		    		agilidade: 60,
+		    		coragem: 50
+	    		}    		
+	    	}
+
+	    	var cartaGandalfCinza = {
+	    		nome: "Gandalf",
+	    		raça: "Mago (Istari)",
+	    		tipo: "Cinza",
+	    		imagem: "http://2.bp.blogspot.com/-uA0IuJ2Jmm8/UI8SKP2vxpI/AAAAAAAANo0/XDmBoMMR-d4/s1600/00_MagaliVilleneuve.jpeg",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 60,
+		    		poder: 90,
+		    		agilidade: 60,
+		    		coragem: 60
+	    		}    		
+	    	}
+
+	    	var cartaGandalfBranco = {
+	    		nome: "Gandalf",
+	    		raça: "Mago, (Istari)",
+	    		tipo: "Branco",
+	    		imagem: "https://i.pinimg.com/originals/38/0d/c2/380dc25bd31fc68423e73a581c447967.jpg",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 70,
+		    		poder: 100,
+		    		agilidade: 60,
+		    		coragem: 80
+	    		}    		
+	    	}
+
+	    	var cartaRadagast = {
+	    		nome: "Radagast",
+	    		raça: "Mago (Istari)",
+	    		tipo: "Marrom",
+	    		imagem: "https://custorage.blob.core.windows.net/gallery-24/art/gome-radagast.jpg",
+	    		atributos: {
+	    			resiliencia: 60,
+		    		forca: 55,
+		    		poder: 80,
+		    		agilidade: 60,
+		    		coragem: 60
+	    		}		
+	    	}
+	    
+	    //Variáveis de Lógica//
+
+	    
+
+	    	var cartasMaquina;
+	    	var cartasJogador;
+
+	    	var cartas = [cartaBeren, cartaElendil, cartaIsildor, cartaBard, cartaAragorn, cartaDenathor, cartaBoromir, cartaFaramir, cartaTheoden, cartaEomer, cartaEowyn, cartaFrodo, cartaBilbo, cartaSam, cartaPippin, cartaMerry, cartaDurin, cartaBalin, cartaThror, cartaThorin, cartaGimli, cartaGlorfindel, cartaGaladriel, cartaGilGalad, cartaElrond, cartaArwen, cartaLuthien, cartaLegolas, cartaAlator, cartaPallando, cartaSaruman, cartaGandalfCinza, cartaGandalfBranco, cartaRadagast];
+
+	    	var pontosJogador = 0;
+	    	var pontosMaquina = 0;
+
+	    atualizaPlacar();
+	    atualizaQuantidadeDeCartas();
+
+	    function atualizaQuantidadeDeCartas() {
+	    	document.querySelector("#quantidade-cartas").innerHTML = `Quantidade de cartas no jogo: ${cartas.length}.`
+	    	//
+	    }
+
+	    function atualizaPlacar () {
+	    	document.querySelector("#placar").innerHTML = `Jogador ${pontosJogador} | ${pontosMaquina} Máquina.`;
+	    	//
+	    }
+
+	    function carta() {
+	    	return cartas[Math.round(Math.random() * cartas.length)];
+	    	//
+	    }	    	
+
+	    function sortearCartas() {  
+	    		cartasMaquina = carta();    		  		
+	    		cartas.splice(cartasMaquina, 1);
+
+	    		cartasJogador = carta();
+	    		cartas.splice(cartasJogador, 1);
+	    		
+	    		document.querySelector("#btnSortear").disabled = true;
+	    		document.querySelector("#btnJogar").disabled = false;
+
+	    		exibeCartasJogador();  		
+	    	} 
+
+	   	function exibeCartasJogador() {
+	   		var divCartaJogador = document.querySelector("#carta-jogador");
+	   		var nome = `<p class="carta-subtitle">${cartasJogador.nome}</p>`;
+	   		var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png" style="width: inherit; height: inherit; position: absolute;">';
+	   		divCartaJogador.style.backgroundImage = `url(${cartasJogador.imagem})`;
+	   		var opcoesTexto = ""
+
+	   		for (var atributo in cartasJogador.atributos) {
+			      opcoesTexto += "<input type='radio' name='atributo' value='" + atributo + "'>" + atributo + " " + cartasJogador.atributos[atributo] + "<br />";
+			   }
+
+    			var html = '<div id="opcoes" class="carta-status">'
+
+	   		divCartaJogador.innerHTML = moldura + nome + html + opcoesTexto + '</div>';
+	   	}	
+ 			   	 	
+   	 	/*function exibirOpcoes() {
+   	 		document.querySelector("#opcoes").classList.remove("esconder");
+   	 	}*/
+
+   	 	function obtemAtributoSelecionado() {
+   	 		var inputSelecionado = document.querySelector("input[name=atributo]:checked");
+
+   	 		if (inputSelecionado == null) {
+   	 			alert("Escolha um atributo para jogar.");
+   	 		} else {
+   	 			return inputSelecionado.value;
+   	 		}
+   	 	}
+
+   	 	function jogar() {
+   	 		var atributoSelecionado = obtemAtributoSelecionado();
+   	 		var atributoJogador = cartasJogador.atributos[atributoSelecionado];
+   	 		var atributoMaquina = cartasMaquina.atributos[atributoSelecionado];
+
+   	 		var divResultado = document.querySelector("#resultado");
+   	 		var htmlResultado;
+
+   	 		if (atributoJogador > atributoMaquina) {
+   	 			htmlResultado = '<p class="resultado-final">Você Venceu!</p>';   	 			
+   	 			pontosJogador++
+
+   	 		} else if (atributoJogador < atributoMaquina) {
+   	 			htmlResultado = '<p class="resultado-final">Você Perdeu!</p>';
+   	 			pontosMaquina++
+
+   	 		}else {
+   	 			htmlResultado = '<p class="resultado-final">Foi empate!</p>';   	 		
+   	 		}   
+
+   	 		if(cartas.length == 0) {
+   	 			alert("Fim de Jogo")
+   	 			if(pontosJogador > pontosMaquina) {
+   	 				htmlResultado = '<p class="resultado-final">Você Venceu!</p>';   	 			 	
+   	 			} else if (atributoJogador < atributoMaquina) {
+   	 			htmlResultado = '<p class="resultado-final">Você Perdeu!</p>';
+   	 			} else {
+   	 				htmlResultado = '<p class="resultado-final">Foi empate!</p>';
+   	 			}
+   	 		} else {
+   	 			document.querySelector("#btnProximaRodada").disabled = false;
+   	 		}
+
+   	 		divResultado.innerHTML = htmlResultado;
+   	 		   	 		
+   	 		atualizaPlacar();
+   	 		exibeCartaMaquina();
+   	 		atualizaQuantidadeDeCartas(); 		
+   	 	}
+
+   	 	function exibeCartaMaquina() {
+   	 		var divCartaMaquina = document.querySelector("#carta-maquina");
+	   		var nome = `<p class="carta-subtitle">${cartasMaquina.nome}</p>`;
+	   		var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png" style="width: inherit; height: inherit; position: absolute;">';
+	   		divCartaMaquina.style.backgroundImage = `url(${cartasMaquina.imagem})`;
+	   		var opcoesTexto = ""
+
+	   		for (var atributo in cartasMaquina .atributos) {
+			      opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cartasMaquina.atributos[atributo] + "<br />";
+			   }
+
+    			var html = '<div id="opcoes" class="carta-status">'
+
+	   		divCartaMaquina.innerHTML = moldura + nome + html + opcoesTexto + '</div>';
+   	 	}
+
+   	 	function proximaRodada() {
+   	 		var divCartas = document.querySelector("#cartas");
+
+   	 		divCartas.innerHTML = `<div id="carta-jogador" class="carta"></div> <div id="carta-maquina" class="carta"></div>`;
+
+   	 		document.querySelector("#btnSortear").disabled = false;
+   	 		document.querySelector("#btnJogar").disabled = true;
+   	 		document.querySelector("#btnProximaRodada").disabled = true;
+
+   	 		var divResultado = document.querySelector("#resultado");
+   	 		divResultado.innerHTML = "";
+   	 	}
+
+   	 	//Botões//
+   	 	
+		   var btnJogar = document.querySelector("#btnJogar");
+
+		   btnJogar.onclick = jogar;
+		   btnJogar.disabled = true;
+		  
+   	 	   document.querySelector("#btnSortear").onclick = sortearCartas;
+
+	   </script>
+   </body>
+</html>
