@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" type="image/svg" href="material/favicon.svg">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" type="image/svg" href="material/favicon.svg" />
 
 		<title>Conversor de Moedas</title>
 	</head>
 	<body>
-		
+		<section class="pergunta">
+			<h2>Qual passagem você prefere?</h2>
+			<input type="radio" name="passagem" id="economica" value="2067.29" />
+			<label for="economica">Econômica</label>
+			<input type="radio" name="passagem" id="executiva" value="4468.33" />
+			<label for="executiva">Executiva</label>
+		</section>
+		<section class="pergunta">
+			<h2>Qual tipo de hospedagem você prefere?</h2>
+			<input type="radio" name="hospedagem" id="acampamento" value="27" />
+			<label for="acampamento">Acampamento</label>
+			<input type="radio" name="hospedagem" id="hostel" value="65" />
+			<label for="hostel">Hostel</label>
+		</section>
+		<button id="btnCalcular">
+			Calcular viagem
+		</button>
+
+		<script>
+			function calcularViagem() {
+				var dias = 7;
+				var passagem = parseFloat(document.querySelector("input[name=passagem]:checked").value);
+				var hospedagem = parseFloat(document.querySelector("input[name=hospedagem]:checked").value);
+				console.log(passagem + hospedagem*dias);
+			}
+
+			document.querySelector("#btnCalcular").onclick = calcularViagem;
+		</script>
 	</body>
 </html>
