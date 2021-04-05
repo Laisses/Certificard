@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" value="width=device-width, initial-scale=1" />
+
+		<link rel="shortcut icon" type="image/svg" href="material/favicon.svg">
+
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=New+Tegomin&display=swap" rel="stylesheet">
+
+		<title>
+			Classificação do Cubo Mágico
+		</title>
+
+		<style>
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {			
+				min-height: 680px;
+				background-image: url(material/pequeno-esquerda.jpg), url(material/pequeno-direita.jpg);
+				background-position: left top, right bottom;			
+				background-repeat: no-repeat;
+				background-color: black;
+				font-family: 'Kiwi Maru', serif;
+			}
+
+			h1, h2 {
+				color: white;				
+				font-family: 'New Tegomin', serif;
+				text-align: center;
+			}
+
+			h1 {
+				font-size: 35px;				
+				margin-bottom: 5px;
+			}
+
+			h2 {
+				font-size: 30px;				
+				margin-top: 5px;
+			}
+
+			table {
+				color: white;				
+				border: 2px solid white;
+				border-collapse: collapse;
+				margin-right: auto;
+				margin-left: auto;				
+			}
+
+			th, td {
+			  border: 2px solid white;
+			  padding: 3px 20px;
+			}
+
+			hr {
+				margin: 40px;
+			}
+
+			ol li {
+				font-size: 25px;
+				color: white;			
+			}
+
+			input {
+				width: 70px;
+			}
+
+			#btnSubmeter {
+				display: block;
+				border: none;
+				border-radius: 5px;
+				font-size: 14px;
+				font-weight: bold;
+				padding: 15px;
+				background-color: lightgray;
+				color: black;
+				cursor: pointer;
+				outline: none;
+			}
+
+			#btnSubmeter:hover {
+				background-color: darkgray;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Tabela de classificação</h1>
+		<h2>Cubo Mágico</h2>
+
+        <table>
+            <thead>
+                <tr>
+                	<th>Jogador</th>
+                    <th>T1</th>
+                    <th>T2</th>
+                    <th>T3</th>
+                    <th>T4</th>
+                    <th>T5</th>
+                    <th>Ao3</th>
+                    <th>Bo3</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaJogadores">
+            	<tr>
+            		<td>
+            			<input type="text" id="nome">
+            		</td>            			
+            		<td>
+            			<input type="number" step="0.01" id="t1">
+            		</td>
+            		<td>
+            			<input type="number" step="0.01" id="t2">
+            		</td>
+            		<td>
+            			<input type="number" step="0.01" id="t3">
+            		</td>
+            		<td>
+            			<input type="number" step="0.01" id="t4">
+            		</td>
+            		<td>
+            			<input type="number" step="0.01" id="t5">
+            		</td>
+            		<td id="ao3" colspan="2">
+            			<button id="btnSubmeter">Submeter</button>
+            		</td>
+            	</tr>
+            </tbody>
+        </table>
+
+        <hr />
+        <h2>Vencedores</h2>
+        <ol id="classificacao"></ol>
+
+		<script>	
+			var jogadores = [];
+
+			function excluiExtremos(t1, t2, t3, t4, t5) {
+				var tempos = [t1, t2, t3, t4, t5];
+           				//    5.3 7.7 7.5 8.9 6.2	 		
+
+				var menorTempo = Math.min.apply(null, tempos); // 5.3
+				var maiorTempo = Math.max.apply(null, tempos); // 8.9
+
+				var posicaoMenorTempo = tempos.indexOf(menorTempo); // 0
+				tempos.splice(posicaoMenorTempo, 1);
+				           // A partir da posição 0 | (incluindo a posição 0) deleta 1
+
+				var posicaoMaiorTempo = tempos.indexOf(maiorTempo); // 3
+				tempos.splice(posicaoMaiorTempo, 1);
+						   // A partir da posição 3 |  (incluindo a posição 3) deleta 1 
+
+				return tempos;
+			}
+
+			// t = array
+			function media(t) {
+				var soma = 0;
+				for (var i = 0; i < t.length; i++) {
+					var tempo = t[i];
+					soma = soma + tempo;
+				}
+				return soma / t.length;
+			}
+
+			function adicionaJogador(nome, t1, t2, t3, t4, t5) {
+				var temposSemExtremos = excluiExtremos(t1, t2, t3, t4, t5); // é o retorno da função que é um array com 3 elementos
+				var mediaDeTempos = media(temposSemExtremos);
+				var melhorTempo = Math.min.apply(null, temposSemExtremos);
+				var linhaDaTabela = ` 
+					<tr>
+						<td>
+							${nome}
+						</td>
+						<td>
+							${t1}
+						</td>
+						<td>
+							${t2}
+						</td>
+						<td>
+							${t3}
+						</td>
+						<td>
+							${t4}
+						</td>
+						<td>
+							${t5}
+						</td>
+						<td>
+							${mediaDeTempos.toFixed(2)}
+						</td>
+						<td>
+							${melhorTempo}
+						</td>
+					</tr>
+				`;
+
+				var tabelaAnterior = document.querySelector("#tabelaJogadores").innerHTML;
+				document.querySelector("#tabelaJogadores").innerHTML = linhaDaTabela + tabelaAnterior;
+
+				jogadores.push({
+					nome: nome,
+					tempo: melhorTempo
+				});
+				classificaJogadores();
+
+				document.querySelector("#btnSubmeter").onclick = btnAdicionaJogador; // rataria
+			}
+
+			function classificaJogadores() {
+				if (jogadores.length < 3) {
+					return; // break (estudar)
+				}
+
+				var jogadoresClassificados = jogadores.sort(function(jogadorUm, jogadorDois) {
+					return jogadorUm.tempo - jogadorDois.tempo;
+				})
+				var primeiro = jogadoresClassificados[0].nome;
+				var segundo = jogadoresClassificados[1].nome;
+				var terceiro = jogadoresClassificados[2].nome;
+
+				document.querySelector("#classificacao").innerHTML = `
+					<li>${primeiro}</li>
+					<li>${segundo}</li>
+					<li>${terceiro}</li>
+				`;
+			}
+
+			function btnAdicionaJogador() {
+				var nome = document.querySelector("#nome").value;
+				var t1 = parseFloat(document.querySelector("#t1").value);
+				var t2 = parseFloat(document.querySelector("#t2").value);
+				var t3 = parseFloat(document.querySelector("#t3").value);
+				var t4 = parseFloat(document.querySelector("#t4").value);
+				var t5 = parseFloat(document.querySelector("#t5").value);
+				adicionaJogador(nome, t1, t2, t3, t4, t5);
+			}
+
+			adicionaJogador("Pedro Moreira", 11.29, 14.26, 8.96, 9.32, 8.76);
+			adicionaJogador("Gustavo Takechi", 12.45, 14.26, 12.20, 14.45, 12.90);
+			adicionaJogador("Abner Gomes", 16.12, 16.33, 15.03, 19.10, 16.08);			
+			adicionaJogador("Anita Zemdegs Lima", 5.04, 6.12, 6.22, 3.79, 5.98);
+
+			document.querySelector("#btnSubmeter").onclick = btnAdicionaJogador;
+		</script>
+	</body>
+</html>
+
+		var jogadores = {
+			nome:,
+			t1: doc,
+			t2,
+	}
