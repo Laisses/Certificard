@@ -3,38 +3,412 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 		<link rel="shortcut icon" type="image/svg" href="material/favicon.svg" />
 
-		<title>Conversor de Moedas</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Montserrat&display=swap" rel="stylesheet">		
+		
+
+		<title>Viagem Nova Zelândia</title>
+
+		<style>
+
+			body {
+				position: relative;
+				background-image: url(material/viagem/wallpaper2.jpg);
+				background-size: cover;		
+				background-repeat: no-repeat;
+				text-align: center;				
+				color: #2c2f38;
+				font-family: 'Josefin Sans', sans-serif;
+			}									
+			
+			h1 {
+				font-size: 40px;
+				padding: 10px;
+			}
+
+			h2 {
+				font-size: 30px;
+				padding: 10px;							
+			}
+
+			header h2 {
+				color: #111b45;
+				font-size: 32px;
+			}
+
+			p {
+				font-family: 'Montserrat', sans-serif;
+				text-align: left;				
+				margin: 10px 30px;
+			}
+
+			#dias {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 10px;
+				border-radius: 5px;
+				background-color: white;
+				padding: 5px;
+				font-size: 120%;
+			}
+
+			#dias:focus {
+				outline: none;
+  				box-shadow: 0 0 0 2px #111b45;
+			}
+
+			label[for="dias"] {
+				display: inline-block;
+				font-size: 120%;
+				margin-bottom: 10px;
+			}
+
+			.intro {
+				font-size: 20px;
+			}
+
+			input[type="radio"], input[type="checkbox"] { 
+				position: absolute;
+				opacity: 0;
+				width: 0;
+				height: 0;
+			}
+
+			input[type="radio"]:not(:checked) + label, 
+			input[type="checkbox"]:not(:checked) + label {
+				opacity: 0.6;
+			}
+
+			input[type="radio"]:checked + label, 
+			input[type="radio"]:hover + label,
+			input[type="checkbox"]:checked + label, 
+			input[type="checkbox"]:hover + label {
+				opacity: 1;
+				
+			}
+
+			input[type="radio"]:checked + label > img, 
+			input[type="checkbox"]:checked + label > img {
+				box-shadow: 0 0 0 3px #111b45;
+			}
+
+			.pergunta {
+				padding: 10px;
+			}
+
+			.pergunta img {
+				width: 290px;
+				height: 180px;
+				border-radius: 20px;
+				margin: 5px;
+				cursor: pointer;
+			}
+
+			.pergunta img:hover, .pergunta img:active {
+	  			background-color: #0c2e14;
+			}
+
+			.pergunta img:active {
+				box-shadow: 0 0 0 2px #0c2e14;
+			}
+
+			#btnCalcular {
+				border: none;
+				border-radius: 5px;
+				font-size: 20px;
+				font-weight: bold;
+				padding: 15px;
+				width: 20%;
+				background-color: #10172e;
+				color: #ffffff;
+				transition: 0.6s background-color;						
+				cursor: pointer;
+				margin: 10px 5px;
+				outline: none;
+			}
+
+			#btnCalcular:hover, #btnCalcular:active {
+  				background-color: #220a30;
+  			}
+
+			#btnCalcular:active {
+				box-shadow: 0 0 0 2px #220a30;
+				font-weight: bolder;
+			}	
+
+			#resultado {				
+				
+			}
+
+			a:link, a:visited {
+			  text-decoration: none;
+			  color: #d1cbcb;
+			}
+
+			a:hover, a:active {
+			  color: #d1cbcb;
+			  font-weight: bold;			  
+			}
+
+			p {
+				display: block;
+			}
+
+			.foto {
+				width: 20px;
+				vertical-align: top;
+				margin-right: 5px;
+				background-color: 
+			}		
+
+			p.info, p.certificard {
+				font-size: 15px;
+				font-weight: bold;
+				bottom: 0px;
+				color: black;
+			}
+
+			.info {
+				left: 10px;
+				text-align: left;
+				padding: 5px;
+			}
+
+			.certificard {
+				text-align: right;
+				right: 0px;
+				margin-top: 5px;
+				padding: 5px;				
+			}
+
+			.certificard a {
+				padding: 5px;
+				background-color: rgba(16, 23, 46, 0.5);
+				font-weight: normal;			
+			}
+
+			.certificard a:hover, a:active {
+				font-weight: bold;
+			}
+
+			#resultado {
+				color: black;
+				font-weight: bold;
+				text-align: center;
+				font-size: 25px;
+			}
+
+			span {
+				color: #220a30;
+			}
+
+			.moeda {
+				display: inline-block;
+				margin: 20px;
+				font-size: 150%;
+			}
+
+			.esconder {
+				display: none;
+			}
+		</style>
+
 	</head>
 	<body>
-		<section class="pergunta">
-			<h2>Qual passagem você prefere?</h2>
-			<input type="radio" name="passagem" id="economica" value="2067.29" />
-			<label for="economica">Econômica</label>
-			<input type="radio" name="passagem" id="executiva" value="4468.33" />
-			<label for="executiva">Executiva</label>
-		</section>
-		<section class="pergunta">
-			<h2>Qual tipo de hospedagem você prefere?</h2>
-			<input type="radio" name="hospedagem" id="acampamento" value="27" />
-			<label for="acampamento">Acampamento</label>
-			<input type="radio" name="hospedagem" id="hostel" value="65" />
-			<label for="hostel">Hostel</label>
-		</section>
-		<button id="btnCalcular">
-			Calcular viagem
-		</button>
+
+		<div class="container">
+
+			<header>
+				<h1>Viagem para a Nova Zelândia: Quanto custa?</h1>
+				<h2>Hello fellow traveler! Kia ora, nau mai!</h2>
+				<p class="intro"> 
+					Que tal descobrir quanto custará sua próxima viagem para conhecer a Nova Zelândia?
+				</p>
+				<p class="intro">
+					Responda as perguntas abaixo sobre o seu estilo de viajante e no final veja o valor médio para sua viagem.
+				</p>
+			</header>		
+			
+			<section class="pergunta">
+				<h2>Antes de mais nada...</h2>
+				<label for="dias">Quantos dias você 	pretende viajar?</label>
+				<input type="number" name="dias" id="dias" value="10" />
+			</section>
+
+			<section class="pergunta">
+				<h2>Qual é o seu estilo de passageiro?</h2>
+
+				<input type="radio" name="passagem" id="economica" value="2067.29" />
+				<label for="economica"><img src="material/viagem/classe-economica.jpg" alt="Foto da classe econômica de um avião."></label>			
+				
+				<input type="radio" name="passagem" id="executiva" value="4468.33" />
+				<label for="executiva"><img src="material/viagem/classe-executiva.jpg" alt="Foto da classe executiva de um avião."></label>
+				
+				<input type="radio" name="passagem" id="primeira-classe" value="19527.16" />
+				<label for="primeira-classe"><img src="material/viagem/primeira-classe.jpg" alt="Foto da primeira classe de um avião."></label>
+			</section>
+
+			<section class="pergunta">
+				<h2>Em qual desses lugares você escolheria ficar?</h2>
+
+				<input type="radio" name="hospedagem" id="acampamento" value="27" />
+				<label for="acampamento"><img src="material/viagem/camp.jpg" alt="Foto de uma cabana."></label>
+
+				<input type="radio" name="hospedagem" id="hostel" value="65" />
+				<label for="hostel"><img src="material/viagem/albatross-hostel.jpg" alt="Foto de um albergue."></label>
+
+				<input type="radio" name="hospedagem" id="hotel-basico" value="120" />
+				<label for="hotel-basico"><img src="material/viagem/hotel-basico-travelodge-wellington.jpg" alt="Foto de um quarto de hotel comum."></label>
+
+				<input type="radio" name="hospedagem" id="hotel-medio" value="305" />
+				<label for="hotel-medio"><img src="material/viagem/hotel-medio-qt-auckland.jpg" alt="Foto de um quarto bonito de hotel."></label>
+
+				<input type="radio" name="hospedagem" id="hotel-caro" value="1300" />
+				<label for="hotel-caro"><img src="material/viagem/hotel-chique-Moritz.jpg" alt="Foto de um quarto de hotel luxuoso."></label>
+
+				<input type="radio" name="hospedagem" id="casa" value="2650" />
+				<label for="casa"><img src="material/viagem/casa-release-wanaka.jpg" alt="Foto de uma casa luxuosa."></label>
+			</section>
+
+			<section class="pergunta">
+				<h2>Qual é o tipo de experiência gastronômica que você busca?</h2>
+
+				<input type="radio" name="alimentacao" id="barata" value="30" />
+				<label for="barata"><img src="material/viagem/comida-barata.jpg" alt="Foto de um sanduíche de queijo quente."></label>
+
+				<input type="radio" name="alimentacao" id="media" value="50" />
+				<label for="media"><img src="material/viagem/comida-economica.jpg" alt="Foto de um prato de macarrão com camarão."></label>
+
+				<input type="radio" name="alimentacao" id="cara" value="80" />
+				<label for="cara"><img src="material/viagem/comida-cara.jpg" alt="Foto de um prato de comida chique com um garçom servindo vinho."></label>			
+			</section>
+
+			<section class="pergunta">
+				<h2>Uma vez lá, qual será o seu meio de transporte principal?</h2>
+
+				<input type="radio" name="transporte" id="carro" value="30" />
+				<label for="carro"><img src="material/viagem/transporte-carro.jpg" alt="Imagem de um carro."></label>
+
+				<input type="radio" name="transporte" id="motorhome" value="61.60" />
+				<label for="motorhome"><img src="material/viagem/transporte-motorhome.jpg" alt="Foto de um motorhome."></label>
+
+				<input type="radio" name="transporte" id="onibus" value="45" />
+				<label for="onibus"><img src="material/viagem/transporte-onibus.jpg" alt="Foto de um ônibus turístico."></label>
+
+				<input type="radio" name="transporte" id="metro" value="18" />
+				<label for="metro"><img src="material/viagem/transporte-publico.jpg" alt="Foto de um metrô."></label>
+			</section>
+
+			<section class="pergunta">
+				<h2>Quais desses passeios você quer incluir na sua viagem?</h2>
+
+				<input type="checkbox" name="passeio" id="balao" value="395" />
+				<label for="balao"><img src="material/viagem/passeio-balao.jpg" alt="Foto de passeio de balão de ar quente."></label>
+
+				<input type="checkbox" name="passeio" id="bungee" value="205" />
+				<label for="bungee"><img src="material/viagem/passeio-bungee.jpg" alt="Foto de um salto de bungee jump."></label>
+
+				<input type="checkbox" name="passeio" id="caverna" value="74" />
+				<label for="caverna"><img src="material/viagem/passeio-caverna-luminosa.jpg" alt="Foto de passeio de barco em uma caverna escura com iluminação natural."></label>
+
+				<input type="checkbox" name="passeio" id="estrelas" value="99" />
+				<label for="estrelas"><img src="material/viagem/passeio-estrelas.jpg" alt="Foto de uma pessoa observando o céu com um telescópio."></label>
+
+				<input type="checkbox" name="passeio" id="geleira" value="500" />
+				<label for="geleira"><img src="material/viagem/passeio-geleira.jpg" alt="Fotos de pessoas andando em uma geleira com um guia."></label>
+
+				<input type="checkbox" name="passeio" id="haka" value="39" />
+				<label for="haka"><img src="material/viagem/passeio-haka.jpg" alt="Foto de homens apresentando o Haka."></label>
+
+				<input type="checkbox" name="passeio" id="helicoptero" value="325" />
+				<label for="helicoptero"><img src="material/viagem/passeio-helicoptero.jpg" alt="Foto de um passeio de helicóptero."></label>
+
+				<input type="checkbox" name="passeio" id="hobbiton" value="100" />
+				<label for="hobbiton"><img src="material/viagem/passeio-hobbiton.jpg" alt="Foto de uma toca do Condado."></label>
+
+				<input type="checkbox" name="passeio" id="mergulho" value="120" />
+				<label for="mergulho"><img src="material/viagem/passeio-mergulho.jpg" alt="Foto de um mergulho com equipamento profissional."></label>
+
+				<input type="checkbox" name="passeio" id="mud" value="79" />
+				<label for="mud"><img src="material/viagem/passeio-mud.jpg" alt="Foto de um casal em uma piscina de lama quente."></label>
+
+				<input type="checkbox" name="passeio" id="paraquedismo" value="299" />
+				<label for="paraquedismo"><img src="material/viagem/passeio-paraquedismo.jpg" alt="Foto de um salto de paraquedas."></label>
+
+				<input type="checkbox" name="passeio" id="rafting" value="109" />
+				<label for="rafting"><img src="material/viagem/passeio-rafting.jpg" alt="Foto de rafting no rio."></label>
+
+				<input type="checkbox" name="passeio" id="tirolesa" value="90" />
+				<label for="tirolesa"><img src="material/viagem/passeio-tirolesa.jpg" alt="Foto de uma pessoa descendo de um morro em uma tirolesa."></label>
+
+				<input type="checkbox" name="passeio" id="vinicola" value="95" />
+				<label for="vinicola"><img src="material/viagem/passeio-vinicola.jpg" alt="Foto de um casal passeando em uma vinícola."></label>
+
+				<input type="checkbox" name="passeio" id="workshop" value="28" />
+				<label for="workshop"><img src="material/viagem/passeio-workshop.jpg" alt="Foto de pessoas em um museu e workshop com tema do Senhor dos Anéis."></label>	
+			</section>
+			
+			
+			<button id="btnCalcular">
+				Calcular viagem
+			</button>
+
+			<p id="resultado" class="esconder">
+				A sua viagem de <span id="n-dias"></span> dias custa:
+				<br />
+				<span id="moeda-nz" class="moeda"></span>
+				<br />
+				o que equivale a:
+				<br />
+				<span id="moeda-br" class="moeda"></span>
+			</p>
+
+			<p class="info">
+				Esse valor é uma estimativa. Para valores mais precisos e outras informações importantes visite o site oficial de turismo da Nova Zelândia: <a href="https://www.newzealand.com/br/">newzealand.com</a>
+			</p>
+			<p class="certificard">
+					<a href="https://laisses.github.io/projetos/"><img src="material/dev-icon.png" class="foto" alt="imagem de uma tag html fechada." />Certificard</a>
+			</p>
+		</div>
+		
 
 		<script>
 			function calcularViagem() {
-				var dias = 7;
+				/*
+				var cotacaoNZ = 4.0;
+
+				var dias = parseInt(document.querySelector("#dias").value);
 				var passagem = parseFloat(document.querySelector("input[name=passagem]:checked").value);
 				var hospedagem = parseFloat(document.querySelector("input[name=hospedagem]:checked").value);
-				console.log(passagem + hospedagem*dias);
+				var alimentacao = parseFloat(document.querySelector("input[name=alimentacao]:checked").value);
+				var transporte = parseFloat(document.querySelector("input[name=transporte]:checked").value);
+
+				var passeios = 0;
+				var passeioInputs = document.querySelectorAll("input[name=passeio]:checked");
+				for (var i = 0; i < passeioInputs.length; i++) {
+					passeios += parseFloat(passeioInputs[i].value);
+				}
+
+				var totalNZ = passagem + hospedagem*dias + alimentacao*dias + transporte*dias + passeios;
+				var totalBR = totalNZ * cotacaoNZ;
+				*/
+				var totalNZ = 123;
+				var totalBR = 456;
+				var dias = 3;
+
+				document.querySelector("#n-dias").innerHTML = dias;
+				document.querySelector("#moeda-nz").innerHTML = "NZ$ " + totalNZ.toFixed(2);
+				document.querySelector("#moeda-br").innerHTML = "R$ " + totalBR.toFixed(2);
+				document.querySelector("#resultado").classList.remove("esconder");
 			}
 
 			document.querySelector("#btnCalcular").onclick = calcularViagem;
+
+			calcularViagem();
 		</script>
 	</body>
 </html>
