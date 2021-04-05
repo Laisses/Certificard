@@ -30,12 +30,12 @@
 				min-height: 100vh;
 			}
 
-			.calculadora {
+			form {
 				position: relative;
 				display: grid;				
 			}
 
-			.calculadora .value {
+			form .value {
 				grid-column: span 4;
 				height: 60px;
 				text-align: right;
@@ -45,7 +45,7 @@
 				font-size: 18px;
 			}
 
-			.calculadora span {
+			form span {
 				display: grid;
 				width: 60px;
 				height: 60px;
@@ -55,29 +55,44 @@
 				border: 1px solid rgba(18, 39, 43, 0.1);
 			}
 
-			.calculadora span:active {
+			form span:active {
 				background: #2D7366;
 				color: #ffffff;
 			}
 
-			.calculadora span.clear {
+			form span:hover, form span:active {
+				cursor: pointer;
+			}
+
+
+			form span.clear {
 				grid-column: span 2;
 				width: 120px;
 				background: #bf8b5E;
 				color: #403932;
 			}
 
-			.calculadora span.mais {
+			form span.clear:active {
+				background-color: #755539;
+				color: #857566;
+			}
+
+			form span.mais {
 				grid-row: span 2;
 				height: 120px;
 			}
 
-			.calculadora span.igual {
+			form span.igual {
 				background: #b7A88d;
 				color: #403932;
 				font-size: 20px;
 			}
 
+			form span.igual:active {
+				background: #6b6354;
+				color: #ccbeaf;				
+			}
+			
 			.foto {
 				width: 20px;
 				vertical-align: top;
@@ -89,7 +104,7 @@
 			}
 
 			.certificard a {
-				background-color: rgba(183, 168, 141, 0.8);					
+				background-color: rgba(183, 168, 141, 0.8);				
 				margin-top: 5px;
 				margin-bottom: 10px;
 				padding: 5px;
@@ -107,38 +122,38 @@
 				color: #314743;
 				font-weight: bold;
 			}
-
+			
 		</style>
 
 	</head>
 
 	<body>
-		<section class="calculadora" name="calc">
-			<input class="value" type="text" name="txt" readonly="">
+		<form name="calculadora">
+			<input class="value" type="text" name="tela" readonly placeholder="0" />
 			
-			<span class="numero clear" onclick="document.calc.txt.value =''">c</span>
-			<span class="numero" onclick="document.calc.txt.value += '/'">/</span>
-			<span class="numero" onclick="document.calc.txt.value += '*'">*</span>
-			<span class="numero" onclick="document.calc.txt.value += '7'">7</span>
-			<span class="numero" onclick="document.calc.txt.value += '8'">8</span>
-			<span class="numero" onclick="document.calc.txt.value += '9'">9</span>
-			<span class="numero" onclick="document.calc.txt.value += '-'">-</span>
-			<span class="numero" onclick="document.calc.txt.value += '4'">4</span>
-			<span class="numero" onclick="document.calc.txt.value += '5'">5</span>
-			<span class="numero" onclick="document.calc.txt.value += '6'">6</span>
-			<span class="numero mais" onclick="document.calc.txt.value += '+'">+</span>
-			<span class="numero" onclick="document.calc.txt.value += '1'">1</span>
-			<span class="numero" onclick="document.calc.txt.value += '2'">2</span>
-			<span class="numero" onclick="document.calc.txt.value += '3'">3</span>
-			<span class="numero" onclick="document.calc.txt.value += '0'">0</span>
-			<span class="numero" onclick="document.calc.txt.value += '00'">00</span>
-			<span class="numero" onclick="document.calc.txt.value += '.'">.</span>
-			<span class="numero igual" onclick="document.calc.txt.value = eval(calc.txt.value)">=</span>		
-		</section>
+			<span class="numero clear" onclick="document.calculadora.tela.value =''">c</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '/'">/</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '*'">*</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '7'">7</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '8'">8</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '9'">9</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '-'">-</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '4'">4</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '5'">5</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '6'">6</span>
+			<span class="numero mais" onclick="document.calculadora.tela.value += '+'">+</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '1'">1</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '2'">2</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '3'">3</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '0'">0</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '00'">00</span>
+			<span class="numero" onclick="document.calculadora.tela.value += '.'">.</span>
+			<span class="numero igual" onclick="document.calculadora.tela.value = eval(document.calculadora.tela.value)">=</span>		
+		</form>
+		
 		<footer class="certificard">
 			<a href="https://laisses.github.io/projetos/"><img src="material/dev-icon.png" class="foto" alt="imagem de uma tag html fechada." />Certificard</a>
-		</footer>  
-
+		</footer> 
 
 	</body>
 
