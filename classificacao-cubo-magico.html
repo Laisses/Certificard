@@ -26,6 +26,7 @@
 				background-repeat: no-repeat;
 				background-color: black;
 				font-family: 'Kiwi Maru', serif;
+				position: relative;
 			}
 
 			h1, h2 {
@@ -86,6 +87,39 @@
 			#btnSubmeter:hover {
 				background-color: darkgray;
 			}
+
+			.foto {
+				width: 20px;
+				vertical-align: top;
+				margin-right: 5px;
+				background-color: 
+			}				
+
+			.certificard {
+				text-align: center;
+			}
+
+			.certificard a {
+				background-color: rgba(16, 23, 46, 0.6);					
+				margin-top: 5px;
+				padding: 5px;
+				font-size: 15px;
+				position: absolute;
+				bottom: 0;
+			}
+
+			.certificard a:link, .certificard a:visited {
+			  text-decoration: none;
+			  color: #d1cbcb;
+			}
+
+			.certificard a:hover, a:active {
+				color: #d1cbcb;
+				font-weight: bold;
+			}
+
+			
+
 		</style>
 	</head>
 	<body>
@@ -136,6 +170,10 @@
         <hr />
         <h2>Vencedores</h2>
         <ol id="classificacao"></ol>
+
+    	<footer class="certificard">
+			<a href="https://laisses.github.io/projetos/"><img src="material/dev-icon.png" class="foto" alt="imagem de uma tag html fechada." />Certificard</a>
+		</footer>
 
 		<script>	
 			var jogadores = [];
