@@ -53,6 +53,7 @@
 				background: #314743;
 				place-items: center;
 				border: 1px solid rgba(18, 39, 43, 0.1);
+				user-select: none;
 			}
 
 			form span:active {
@@ -148,7 +149,7 @@
 			<span class="numero" onclick="document.calculadora.tela.value += '0'">0</span>
 			<span class="numero" onclick="document.calculadora.tela.value += '00'">00</span>
 			<span class="numero" onclick="document.calculadora.tela.value += '.'">.</span>
-			<span class="numero igual" onclick="document.calculadora.tela.value = eval(document.calculadora.tela.value)">=</span>		
+			<span class="numero igual" onclick="if (document.calculadora.tela.value !== '') {document.calculadora.tela.value = eval(document.calculadora.tela.value)}">=</span>		
 		</form>
 		
 		<footer class="certificard">
