@@ -1,220 +1,390 @@
 <!DOCTYPE html>
-<html lang="pt">
-	<head>
-    	<meta charset="UTF-8">
-    	<meta name="viewport" value="width=device-width, initial-scale=1">
-      
-      <title> Trunfo do Anel </title>
-        
-	   <style>
-	    	body {
-		   	font-family: 'Roboto Mono', monospace;
-		   	min-height: 854px;
-			   background-image: url('https://www.alura.com.br/assets/img/imersoes/dev-2021/dia-07-super-trunfo-bg.png');
-			   background-color: #000000;
-			   background-size: cover;
-			   background-position: center top;
-			   background-repeat: no-repeat;
-			   padding-bottom: 20vh;
+<html lang="pt-br"> 
+	<head>	  
+		<meta charset="utf-8">
+		<meta name="viewport" value="width=device-width, initial-scale=1" />
+		<title></title>
+
+
+		<style>
+
+			* {
+				margin: 0;
+				padding: 0;			
+			}
+			
+			@font-face {
+				font-family: Half-Elven;
+				src: url("material/fontes/half-elven-font/HalfElven-gzj4.ttf");
 			}
 
-			.container {
-			   text-align: center;
-			   padding: 20px;
+			@font-face {
+				font-family: Ringbearer;
+				src: url("material/fontes/ringbearer-font/RingbearerMedium-51mgZ.ttf");
 			}
 
-			.page-title {
-			   color: #ffffff;
-			   margin: 5px 0;
+			@font-face {
+				font-family: Angerthas-Moria;
+				src: url("material/fontes/angerthas-moria-font/AngerthasMoria-lgLAD.ttf");
+			}
+			
+			@font-face {
+				font-family: Elvish Ring NFI;
+				src: url(ElvishRingNfi-wMJz.ttf);
 			}
 
-			button {
+			body {
+				background-image: url("material/valfenda.jpg")
+			}
+
+			@font-face {
+				font-family: Ringbearer;
+				src: url(material/fontes/ringbearer-font/RingbearerMedium-51mgZ.ttf);
+			}
+
+			@font-face {
+				font-family: Elvish Ring NFI;
+				src: url(ElvishRingNfi-wMJz.ttf);
+			}
+
+			@font-face {
+				font-family: Morris Roman;
+				src: url(material/fontes/morris-roman/MorrisRoman-Black.ttf);
+			}
+
+			body {
+				text-align: center;				
+			}
+
+			h1 {
+				font-family: Ringbearer;
+				font-weight: normal;
+				font-size: 40px;
+				text-align: center;
+				color: #bf911d;
+				text-shadow: 2px 2px 4px #000000;
+				padding-top: 20px;		
+			}
+
+			#elfico {
+				font-family: Elvish Ring NFI;
+				font-size: 20px;
+				color:#9c7106;
+				text-shadow: 2px 2px 4px #141414;
+				margin-bottom: 10px;
+			}
+
+			#intro, button {
+				font-family: Morris Roman;
+			}
+
+			#intro {
+				font-size: 22px;
+				color: #7c9492;
+				text-shadow: 2px 2px 4px #000000;
+				opacity: 0;
+			}
+
+			#btnSortear, #btnJogar {
 			   width: 10rem;
 			   max-width: 10rem;
-			   padding: .8rem 1.5rem;
+			   padding: .7rem .5rem;
 			   margin: 2rem auto;
 			   border-radius: 5px;
-			   border: none;
-			   font-size: 1rem;
+			   border: none;			   
+			   display: block;
+			   background-color: #736048;
+			   color: #131916;
+			   font-size: 22px;
+			   font-weight: bold;
 			}
 
-			h2 {
-			   color: white;
-			}
+			/* Estilos da carta */
+			/*Colocar sombra na carta*/
 
-			h3 {
-				color:white;
-			}
-
-			#carta-jogador, #carta-maquina {
-			   width: 360px;
-			   height: 500px;
-			   overflow: auto;
-			   border-radius: 10px;
-			   margin-bottom: 20px;
-			   margin: 0 auto;
-			   display: flex;
-			   align-items: flex-end;
-			   position: relative;
-			   background-size: 350px 300px;
-			   background-repeat: no-repeat;
-			   background-position-x: 5px;
-			   background-position-y: 10px;
-			   border-radius: 33px;
-			}
-
-			.esconder {
-				display: none;
-			}
-
-			#carta-jogador h3 {
-			   text-align: center;
-			}
-
-			.carta-imagem {
-			   border: 1px solid black;
-			   height: 100px;
-			   margin: 10px;
-			}
-
-			.carta-imagem img {
-			   width: 100%;
-			   height: 100%;
-			}
-
-			.carta-status {
-			   height: 160px;
-			   margin: 2rem;
-			   color: white;
-			   z-index: 2;
-			   text-align: left;
-			}
-
-			.carta-status input {
-			   margin: 8px 10px;
-			}
-
-			.carta-status p {
-				margin: 8px 10px;
-			}
-
-			.opcoes {
-			   color: white;
-			}
-
-			.resultado-final {
-				color:white;
-				font-size: 2rem;
-				text-transform: uppercase;
-				font-weight: bolder;
-				padding: 1rem;
-				border: 2px solid black;
-				background-color: black;
-			}	
-
-			.--spacing {
-				margin-left: 2.5rem;
-			}
-
-			
-			form {
+			.template-carta {
 				display: flex;
+				justify-content: center;
 				flex-direction: column;
-			}
-			
+				align-items: center;				
+				background-color: transparent;								
+			}					
 
-			.wrapper {
+			.detalhes {
+				border: 1px solid black;
+				width: 250px;
+				height: 465px;				
+				background-image: url("material/Dark-Leather-Blue.jpg");
+				background-color: #1c2617;
+				border-radius: 10px;
+			}
+
+			.nome {
+				border: 2px solid #996515;
+				border-radius: 15px;
+				width: 110px;
+				height: 40px;
+				text-align: center;
 				display: flex;
-				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				transform: translateY(28px);				
+				box-shadow:0 0 5px 2px #171005;
+				font-size: 20px;
+				font-family: Half-Elven;
+				font-weight: bold;
+			}		
+
+			.nome, .tipo {
+				background-color: #bf946f;
 			}
 
-			.carta-subtitle {
-				z-index: 2;
-				position: absolute;
-				top: 0;
-				left: 37px;
-				font-weight: 800;				
-				text-transform: uppercase;				
+			.moldura {
+				background-color: #d69172;
+				margin-top: 15px;
+				border-top-right-radius: 5px;
+				border-top-left-radius: 5px;
 			}
 
-			#cartas {
-				width: 100%;
+			.imagem {
+				max-width: 220px;
+				height: 188px;
+			}
+
+			.tipo, .poderes, .moldura, .imagem {
+				width: 220px;
+				display: block;
+				margin-right: auto;
+				margin-left: auto;
+			}
+
+			.tipo, .moldura, .poderes {
+				border: 2px solid #996515;
+			}
+
+			.tipo {				
+				text-align: center;
+				font-size: 20px;
+				font-weight: bold;
+				font-family: Impact;
+				word-spacing: 20px;
+			}
+
+			.poderes {
+				background-color: #d9bdba;
+				box-shadow: inset 0 0 10px 5px #8C6E6B;
+				border-bottom-right-radius: 5px;
+				border-bottom-left-radius: 5px;
+				text-align: left;			
+			}
+
+			.poderes label, .poderes p {
+				display: inline-block;
+				margin: 5px auto 10px 20px;
+				padding: 3px;
+				font-family: Ringbearer;
+			}			
+
+			.poderes label {
+				cursor: pointer;
+			}
+
+			#mesa-de-cartas {
 				display: flex;
-				justify-content: space-between;
+				flex-direction: row;
+				justify-content: space-around;
 			}
 
-			#placar, #quantidade-cartas {
+			#placar, #quantidade-cartas, #resultado {
 				color: white;
+				font-family: Morris Roman;
+				font-size: 20px;
 			}
 
-		</style>
+			#resultado {
+				font-size: 30px;
+			}
 
-   </head>
+			.tampar {
+				visibility: hidden;
+			}
 
-   <body>
+			.poderes input {
+				cursor: pointer;
+				margin-left: 20px;
+			}
+		</style>			 
+	</head>
 
-      	<div class="container">
-      		<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-super-trunfo.png" class="page-logo" alt="">
-      		<h1 class="page-title">Super Trunfo</h1>
+	<body>
 
-	      	<button id="btnSortear">
+		<header>
+
+			<h1>Trunfo do Anel</h1>
+			
+			<p id="elfico"></p>
+
+			<p id="intro">
+				Você é capaz de salvar a Terra Média? Jogue contra Sauron e mostre quem é o verdadeiro Senhor dos Anéis.
+			</p>
+
+		<!--
+			<button id="btnTeste">Me testa!</button>
+			<button id="btnFadeOut">Fade Out</button>
+			<button id="btnFadeIn">Fade In</button>
+		-->
+
+			<button id="btnSortear">
 	      		Sortear Cartas
 	      	</button>
+	      	<div id="placar"></div>
+	      	<div id="quantidade-cartas"></div>
 
-	      	<form id="form">
-	      		<h2>Escolha o seu atributo</h2>
-	      		<div class="wrapper">
-	      			<div id="placar"></div>
-                	<div id="quantidade-cartas"></div>
-                	<div id="cartas">
-                    	<div id="carta-jogador" class="carta"></div>
-                    	<div id="carta-maquina" class="carta"></div>
-                	</div>	      			
-	      		</div>		
+		<header>
 
-	      		<div id="resultado"></div>    		
-      		
-	      	</form>	  
+		<div id="mesa-de-cartas">
+			<section class="template-carta tampar" id="carta-jogador">
+				<p class="nome">Aragorn</p>
+				<div class="detalhes">			
+					<div class="moldura">
+						<img src="material/trunfo-do-anel/homens/aragorn_by_cao-ke-gong.jpg" class="imagem" />			
+					</div>
+					<p class="tipo">Dúnadain</p>
+					<div class="poderes">
+						<input type="radio" name="atributo" value="forca" id="forca-jogador" />
+						<label for="forca-jogador">Força: <span class="forca">88</span></label>
+						<br />
 
-	      	<button id="btnProximaRodada" onclick="proximaRodada()" disabled="true">
-	      			Próxima Rodada
-	      		</button>  
+						<input type="radio" name="atributo" value="resiliencia" id="resiliencia-jogador" />
+						<label for="resiliencia-jogador">Resiliência: <span class="resiliencia">67</span></label>
+						<br />
 
-	      	<button id="btnJogar">
-  				Jogar
-  			</button>	
+						<input type="radio" name="atributo" value="poder" id="poder-jogador" />
+						<label for="poder-jogador">Poder: <span class="poder">46</span></label>
+						<br />
+
+						<input type="radio" name="atributo" value="agilidade" id="agilidade-jogador" />
+						<label for="agilidade-jogador">Agilidade: <span class="agilidade">87</span></label>
+						<br />
+
+						<input type="radio" name="atributo" value="coragem" id="coragem-jogador" />
+						<label for="coragem-jogador">Coragem: <span class="coragem">98</span></label>
+					</div>
+				</div>
+			</section>
+
+			<section class="template-carta tampar" id="carta-maquina">
+				<p class="nome">Aragorn</p>
+				<div class="detalhes">			
+					<div class="moldura">
+						<img src="material/trunfo-do-anel/homens/aragorn_by_cao-ke-gong.jpg" class="imagem" />			
+					</div>
+					<p class="tipo">Dúnadain</p>
+					<div class="poderes">
+						<p>Força: <span class="forca">88</span></p>
+						<p>Resiliência: <span class="resiliencia">67</span></p>
+						<p>Poder: <span class="poder">46</span></p>
+						<p>Agilidade: <span class="agilidade">87</span></p>
+						<p>Coragem: <span class="coragem">98</span></p>
+					</div>
+				</div>
+			</section>
 		</div>
 
+		<div id="resultado"></div>
+		<button id="btnJogar">
+      		Jogar
+      	</button>	
 
-		   <!--<div class="opcoes esconder" id="opcoes">
+		<script>
+			/*
+				- [x] duas cartas lado a lado
+				- [x] migrar javascript para cá
+				<hr />
+				- [x] usar imagens locais ao invés das remotas para os homens
 
-	      	<input type="radio" name="atributo" value="resiliencia" />
-	      	<label for="resiliencia">Resiliência</label><br />
+				- [x] fazer o nome das cartar caber na caixinha de nome
+				- [x] embelezar placar e quantidade de cartas
+				- [x] ativar animação do élfico
+				<hr />
+				- [ ] colocar botões de sortear entre as cartas
+				- [ ] juntar variáveis das cartas em uma variável só
+				- [ ] botão de próxima rodada
+			*/
 
-				<input type="radio" name="atributo" value="forca" />
-				<label for="forca">Força</label><br />
+			// Animação do header
 
-				<input type="radio" name="atributo" value="poder" />
-				<label for="poder">Poder</label><br />
+			/*
+			function escondeIntro() {
+				intervalo = setInterval(esconder,20);
+			}
 
-				<input type="radio" name="atributo" value="agilidade" />
-				<label for="agilidade">Agilidade</label><br />
+			function esconder() {
+				var textoIntro = document.querySelector("#intro");
+				opacity = Number(window.getComputedStyle(textoIntro).getPropertyValue("opacity"));
 
-				<input type="radio" name="atributo" value="coragem" />
-				<label for="coragem">Coragem</label><br />
+				if (opacity > 0) {
+					opacity = opacity - 0.1;
+					intro.style.opacity = opacity;
 
-	      </div>
-	   -->
+				} else {
+					clearInterval(intervalo);
+				}
+			}
+			*/
 
-	   <script>
+			var letras = 0;
+			var textoElfico = "One Ring to rule them all One Ring to find them One Ring to bring them all	and in the darkness bind them";
+			var speed = 50; //milissegundos
 
-	   	//Cartas dos Homens
+			var opacity = 0;
+			var intervalo = 0;
 
-	   		var cartaBeren = {
-    			nome: "Beren Erchamion",
-	    		raça: "Raça dos Homens",
+			function escreveElfico() {
+				if (letras < textoElfico.length) {
+					document.querySelector("#elfico").innerHTML += textoElfico.charAt(letras);
+					letras++;
+					setTimeout(escreveElfico, speed);
+				} else {
+					mostraIntro();
+				}
+			}
+
+			function mostraIntro() {
+				intervalo = setInterval(mostrar,100);
+			}
+
+			function mostrar() {
+				var textoIntro = document.querySelector("#intro");
+				opacity = Number(window.getComputedStyle(textoIntro).getPropertyValue("opacity"));
+
+				if (opacity < 1) {
+					opacity = opacity + 0.1;
+					intro.style.opacity = opacity;
+
+				} else {
+					clearInterval(intervalo);
+				}
+			}
+
+			// Declaração do deck de cartas //
+
+
+
+
+
+
+
+
+
+
+
+
+			var cartaBeren = {
+    			nome: "Beren",
 	    		tipo: "Edain",
-	    		imagem: "https://static.wikia.nocookie.net/lotr/images/0/03/Eve_Ventrue_-_Beren_Camlost.jpg/revision/latest/scale-to-width-down/824?cb=20201030175755",
+	    		imagem: "material/trunfo-do-anel/homens/beren_camlost_by_eve_ventrue.jpg",
 	    		atributos: {
 	    			resiliencia: 80,
 		    		forca: 100,
@@ -226,9 +396,8 @@
 
 	    	var cartaElendil = {
 	    		nome: "Elendil",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Numenoriano",
-	    		imagem: "http://tolkiengateway.net/w/images/thumb/d/d8/Kimberly_-_Elendil.jpg/447px-Kimberly_-_Elendil.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/elendil_by_kimberly80.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
 		    		forca: 90,
@@ -240,9 +409,8 @@
 
 	    	var cartaIsildor = {
 	    		nome: "Isildor",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Numenoriano",
-	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0df9c88c-31ea-4a90-80a3-ff05e799d307/db6w8ud-731cd4c9-0149-47ed-b9d1-3b7c4a719cc2.jpg/v1/fill/w_1024,h_1590,q_75,strp/isildur_by_samo_art_db6w8ud-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xNTkwIiwicGF0aCI6IlwvZlwvMGRmOWM4OGMtMzFlYS00YTkwLTgwYTMtZmYwNWU3OTlkMzA3XC9kYjZ3OHVkLTczMWNkNGM5LTAxNDktNDdlZC1iOWQxLTNiN2M0YTcxOWNjMi5qcGciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.d9r5aLm9bt5jGKCmvhy8eQUt_ffER0St1F4DE1o_RQw",
+	    		imagem: "material/trunfo-do-anel/homens/isildur_by_samo_art.jpg",
 	    		atributos: {
 	    			resiliencia: 40,
 		    		forca: 85,
@@ -253,10 +421,9 @@
 	    	}
 
 	    	var cartaBard = {
-	    		nome: "Bard, the Bowman",
-	    		raça: "Raça dos Homens",
+	    		nome: "Bard",
 	    		tipo: "Homem do Lago",
-	    		imagem: "https://static.wikia.nocookie.net/lotr/images/3/3d/Bard_the_Bowman.jpg/revision/latest/scale-to-width-down/581?cb=20121207112201",
+	    		imagem: "material/trunfo-do-anel/homens/bard_the_bowman_by_suz87.jpg",
 	    		atributos: {
 	    			resiliencia: 60,
 		    		forca: 50,
@@ -267,10 +434,9 @@
 	    	}
 
 	    	var cartaAragorn = {
-	    		nome: "Aragorn (Elessar)",
-	    		raça: "Raça dos Homens",
+	    		nome: "Aragorn",
 	    		tipo: "Dúnedain",
-	    		imagem: "https://static.wikia.nocookie.net/rpg-rise-of-the-titans/images/c/cb/Aragooorn.jpg/revision/latest/scale-to-width-down/450?cb=20201120181515&path-prefix=pt-br",
+	    		imagem: "material/trunfo-do-anel/homens/aragorn_by_cao_ke_gong.jpg",
 	    		atributos: {
 	    			resiliencia: 70,
 		    		forca: 80,
@@ -281,10 +447,9 @@
 	    	}
 
 	    	var cartaDenathor = {
-	    		nome: "Denethor II",
-	    		raça: "Raça dos Homens",
+	    		nome: "Denethor",
 	    		tipo: "Gondoriano",
-	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Denethor.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/denethor_by_magali_vileneuve.jpg",
 	    		atributos: {
 	    			resiliencia: 20,
 		    		forca: 40,
@@ -296,9 +461,8 @@
 
 	    	var cartaBoromir = {
 	    		nome: "Boromir",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Gondoriano",
-	    		imagem: "http://tolkiengateway.net/w/images/thumb/2/28/Donato_Giancola_-_Boromir.jpg/250px-Donato_Giancola_-_Boromir.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/boromir_by_aurore_folny.jpg",
 	    		atributos: {
 	    			resiliencia: 40,
 		    		forca: 85,
@@ -310,9 +474,8 @@
 
 	    	var cartaFaramir = {
 	    		nome: "Faramir",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Gondoriano",
-	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Faramir.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/faramir_by_magali_vileneuve.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
 		    		forca: 80,
@@ -324,9 +487,8 @@
 
 	    	var cartaTheoden = {
 	    		nome: "Théoden",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Rohirrim",
-	    		imagem: "https://i.imgur.com/BCwiJR4.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/theoden_by_varsha_vijayan.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
 		    		forca: 70,
@@ -338,9 +500,8 @@
 
 	    	var cartaEomer = {
 	    		nome: "Éomer",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Rohirrim",
-	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Eomer.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/eomer_by_magali_vileneuve.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
 		    		forca: 70,
@@ -352,9 +513,8 @@
 
 	    	var cartaEowyn = {
 	    		nome: "Éowyn",
-	    		raça: "Raça dos Homens",
 	    		tipo: "Rohirrim",
-	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Eowyn.jpg",
+	    		imagem: "material/trunfo-do-anel/homens/eowyn_by_magali_villeneuve.jpg",
 	    		atributos: {
 	    			resiliencia: 70,
 		    		forca: 60,
@@ -367,9 +527,8 @@
 	    // Cartas dos Hobbits //
 
 	    	var cartaFrodo = {
-	    		nome: "Frodo Baggins",
-	    		raça: "Hobbit",
-	    		tipo: "Condado",
+	    		nome: "Frodo",
+	    		tipo: "Hobbit",
 	    		imagem: "https://i.pinimg.com/564x/c8/b6/8d/c8b68d3a2abc86f4ce57f0d4a9d88d5f.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -381,9 +540,8 @@
 	    	}
 
 	    	var cartaBilbo = {
-	    		nome: "Bilbo Baggins",
-	    		raça: "Hobbit",
-	    		tipo: "Condado",
+	    		nome: "Bilbo",
+	    		tipo: "Hobbit",
 	    		imagem: "https://designrshub-designrshub.netdna-ssl.com/wp-content/uploads/2013/03/bilbo-baggins-07.jpg",
 	    		atributos: {
 	    			resiliencia: 30,
@@ -395,9 +553,8 @@
 	    	}
 
 	    	var cartaSam = {
-	    		nome: "Samwise (Sam) Gamgee",
-	    		raça: "Hobbit",
-	    		tipo: "Condado",
+	    		nome: "Samwise",
+	    		tipo: "Hobbit",
 	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Sam-Gamgee.jpg",
 	    		atributos: {
 	    			resiliencia: 30,
@@ -409,9 +566,8 @@
 	    	}
 
 	    	var cartaPippin = {
-	    		nome: "Peregrin (Pippin) Tûk",
-	    		raça: "Hobbit",
-	    		tipo: "Condado",
+	    		nome: "Pippin",
+	    		tipo: "Hobbit",
 	    		imagem: "https://s3.amazonaws.com/hallofbeorn-resources/Images/LotR/Characters/Pippin.jpg",
 	    		atributos: {
 	    			resiliencia: 30,
@@ -423,9 +579,8 @@
 	    	}
 
 	    	var cartaMerry = {
-	    		nome: "Meriadoc (Merry) Brandebuque",
-	    		raça: "Hobbit",
-	    		tipo: "Condado",
+	    		nome: "Merry",
+	    		tipo: "Hobbit",
 	    		imagem: "https://i.pinimg.com/originals/13/df/41/13df4136550a26a32aa556427ad6fa6a.jpg",
 	    		atributos: {
 	    			resiliencia: 30,
@@ -441,8 +596,7 @@
 
 	    	var cartaDurin = {
 	    		nome: "Durin I",
-	    		raça: "Anão",
-	    		tipo: "Moria",
+	    		tipo: "Anão",
 	    		imagem: "https://i.ytimg.com/vi/jAyaTOYNqfQ/hqdefault.jpg",
 	    		atributos: {
 	    			resiliencia: 80,
@@ -455,8 +609,7 @@
 
 	    	var cartaBalin = {
 	    		nome: "Balin",
-	    		raça: "Anão",
-	    		tipo: "Moria",
+	    		tipo: "Anão",
 	    		imagem: "https://i.pinimg.com/564x/c7/36/4d/c7364d37576452867737a46c1044e961.jpg",
 	    		atributos: {
 	    			resiliencia: 90,
@@ -469,8 +622,7 @@
 
 	    	var cartaThror = {
 	    		nome: "Thrór",
-	    		raça: "Anão",
-	    		tipo: "Erebor",
+	    		tipo: "Anão",
 	    		imagem: "https://static.wikia.nocookie.net/lotr/images/e/e4/King_Thror_concept_art.jpg/revision/latest/scale-to-width-down/230?cb=20170127120108",
 	    		atributos: {
 	    			resiliencia: 80,
@@ -482,9 +634,8 @@
 	    	}
 
 	    	var cartaThorin = {
-	    		nome: "Thorin (Escudo de Carvalho) II",
-	    		raça: "Anão",
-	    		tipo: "Erebor",
+	    		nome: "Thorin",
+	    		tipo: "Anão",
 	    		imagem: "https://i.pinimg.com/564x/57/bf/e5/57bfe54632a6e83ef2664550a4ddd6e0.jpg",
 	    		atributos: {
 	    			resiliencia: 100,
@@ -497,8 +648,7 @@
 
 	    	var cartaGimli = {
 	    		nome: "Gimli",
-	    		raça: "Anão",
-	    		tipo: "Cavernas Cintilantes",
+	    		tipo: "Anão",
 	    		imagem: "https://cafans.b-cdn.net/images/Category_62552/subcat_111494/Matt%20Stewart%20Gimli%20Forty%20Two.jpg",
 	    		atributos: {
 	    			resiliencia: 85,
@@ -513,8 +663,7 @@
 
 	    	var cartaGlorfindel = {
 	    		nome: "Glorfindel",
-	    		raça: "Elfo",
-	    		tipo: "Valinor/Valfenda",
+	    		tipo: "Elfo",
 	    		imagem: "https://static.wikia.nocookie.net/lotr/images/e/ed/Glorfindel-0.jpg/revision/latest/scale-to-width-down/294?cb=20170628041038",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -527,9 +676,8 @@
 
 	    	var cartaGaladriel = {
 	    		nome: "Galadriel", 
-	    		raça: "Elfo",
-	    		tipo: "Valinor/Lothlórien",
-	    		imagem: "https://external-preview.redd.it/6Dr66Yw5c3mj0JSrKDohZE8VFf3Co7I4S6i3-3ayzqk.jpg?width=960&crop=smart&auto=webp&s=27f87ed1208da3bc6202fd6ab6c5cfe277d3d12d",
+	    		tipo: "Elfo",
+	    		imagem: "material/trunfo-do-anel/elfos/galadriel_by_victoria_victorem.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
 		    		forca: 70,
@@ -541,8 +689,7 @@
 
 	    	var cartaGilGalad = {
 	    		nome: "Gil-galad",
-	    		raça: "Elfo",
-	    		tipo: "Noldor",
+	    		tipo: "Elfo",
 	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a7564bda-842b-4b8e-a21b-27dab68a6ac6/dbv51vb-13ebf3e2-7e2e-492f-b02f-1baa87b2e9f8.png/v1/fill/w_1024,h_1095,strp/gil_galad_by_kaprriss_dbv51vb-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0xMDk1IiwicGF0aCI6IlwvZlwvYTc1NjRiZGEtODQyYi00YjhlLWEyMWItMjdkYWI2OGE2YWM2XC9kYnY1MXZiLTEzZWJmM2UyLTdlMmUtNDkyZi1iMDJmLTFiYWE4N2IyZTlmOC5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.HsXSJEfdK02UjzAUmtDDmzvoNHK7187rQs-m__mYyYk",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -555,8 +702,7 @@
 
 	    	var cartaElrond = {
 	    		nome: "Elrond",
-	    		raça: "Elfo",
-	    		tipo: "Valfenda",
+	    		tipo: "Elfo",
 	    		imagem: "https://static.wikia.nocookie.net/rpg-rise-of-the-titans/images/d/da/Elrond.jpg/revision/latest?cb=20200811211215&path-prefix=pt-br",
 	    		atributos: {
 	    			resiliencia: 40,
@@ -569,8 +715,7 @@
 
 	    	var cartaArwen = {
 	    		nome: "Arwen",
-	    		raça: "Elfo",
-	    		tipo: "Valfenda",
+	    		tipo: "Elfo",
 	    		imagem: "http://2.bp.blogspot.com/-oJbwhSgbeyg/UI8SK3VUuNI/AAAAAAAANo8/QNhHJX8F098/s1600/Arwen_MagaliVilleneuve.jpeg",
 	    		atributos: {
 	    			resiliencia: 40,
@@ -582,9 +727,8 @@
 	    	}
 
 	    	var cartaLuthien = {
-	    		nome: "Lúthien (Tinuviel)",
-	    		raça: "Elfo",
-	    		tipo: "Doriath",
+	    		nome: "Lúthien",
+	    		tipo: "Elfo",
 	    		imagem: "https://static.wikia.nocookie.net/lotr/images/6/67/Luthien_by_moon_blossom-d2klr1v.png/revision/latest?cb=20131228225501",
 	    		atributos: {
 	    			resiliencia: 60,
@@ -597,8 +741,7 @@
 
 	    	var cartaLegolas = {
 	    		nome: "Legolas",
-	    		raça: "Elfo",
-	    		tipo: "Ithilien",
+	    		tipo: "Elfo",
 	    		imagem: "https://i.pinimg.com/originals/b3/36/f6/b336f6a988c1bafb8bad0a6c69666d6b.jpg",
 	    		atributos: {
 	    			resiliencia: 60,
@@ -613,8 +756,7 @@
 
 	    	var cartaAlator = {
 	    		nome: "Alator",	
-	    		raça: "Mago (Istari)",
-	    		tipo: "Azul",
+	    		tipo: "Mago Azul",
 	    		imagem: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5553f261-ab12-41ae-bf6c-3b9da1da16c0/dd5yec0-83d8756a-9a25-4dc5-a78b-c9ee935c2d69.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTU1M2YyNjEtYWIxMi00MWFlLWJmNmMtM2I5ZGExZGExNmMwXC9kZDV5ZWMwLTgzZDg3NTZhLTlhMjUtNGRjNS1hNzhiLWM5ZWU5MzVjMmQ2OS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.6LrMJYg7d2f3mRkwN-Yx6qJxU8-RrhXw0Ux7dwi7pTo",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -627,8 +769,7 @@
 
 	    	var cartaPallando = {
 	    		nome: "Pallando",
-	    		raça: "Mago (Istari)",
-	    		tipo: "Azul",
+	    		tipo: "Mago Azul",
 	    		imagem: "https://i.pinimg.com/originals/81/e5/d1/81e5d1e4cec8a1f1fa706c5f8bffd9fd.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -641,8 +782,7 @@
 
 	    	var cartaSaruman = {
 	    		nome: "Saruman",
-	    		raça: "Mago (Istari)",
-	    		tipo: "Muitas Cores",
+	    		tipo: "Mago Muitas Cores",
 	    		imagem: "https://pbs.twimg.com/media/EcNOw9nXQAEG9tr.jpg",
 	    		atributos: {
 	    			resiliencia: 50,
@@ -655,8 +795,7 @@
 
 	    	var cartaGandalfCinza = {
 	    		nome: "Gandalf",
-	    		raça: "Mago (Istari)",
-	    		tipo: "Cinza",
+	    		tipo: "Mago Cinza",
 	    		imagem: "http://2.bp.blogspot.com/-uA0IuJ2Jmm8/UI8SKP2vxpI/AAAAAAAANo0/XDmBoMMR-d4/s1600/00_MagaliVilleneuve.jpeg",
 	    		atributos: {
 	    			resiliencia: 60,
@@ -669,8 +808,7 @@
 
 	    	var cartaGandalfBranco = {
 	    		nome: "Gandalf",
-	    		raça: "Mago, (Istari)",
-	    		tipo: "Branco",
+	    		tipo: "Mago Branco",
 	    		imagem: "https://i.pinimg.com/originals/38/0d/c2/380dc25bd31fc68423e73a581c447967.jpg",
 	    		atributos: {
 	    			resiliencia: 60,
@@ -683,8 +821,7 @@
 
 	    	var cartaRadagast = {
 	    		nome: "Radagast",
-	    		raça: "Mago (Istari)",
-	    		tipo: "Marrom",
+	    		tipo: "Mago Marrom",
 	    		imagem: "https://custorage.blob.core.windows.net/gallery-24/art/gome-radagast.jpg",
 	    		atributos: {
 	    			resiliencia: 60,
@@ -694,158 +831,145 @@
 		    		coragem: 60
 	    		}		
 	    	}
-	    
-	    //Variáveis de Lógica//
+	   
+			var cartas = [cartaBeren, cartaElendil, cartaIsildor, cartaBard, cartaAragorn, cartaDenathor, cartaBoromir, cartaFaramir, cartaTheoden, cartaEomer, cartaEowyn, cartaFrodo, cartaBilbo, cartaSam, cartaPippin, cartaMerry, cartaDurin, cartaBalin, cartaThror, cartaThorin, cartaGimli, cartaGlorfindel, cartaGaladriel, cartaGilGalad, cartaElrond, cartaArwen, cartaLuthien, cartaLegolas, cartaAlator, cartaPallando, cartaSaruman, cartaGandalfCinza, cartaGandalfBranco, cartaRadagast];
 
-	    
+			// Lógica de cartas //
 
-	    	var cartasMaquina;
-	    	var cartasJogador;
-
-	    	var cartas = [cartaBeren, cartaElendil, cartaIsildor, cartaBard, cartaAragorn, cartaDenathor, cartaBoromir, cartaFaramir, cartaTheoden, cartaEomer, cartaEowyn, cartaFrodo, cartaBilbo, cartaSam, cartaPippin, cartaMerry, cartaDurin, cartaBalin, cartaThror, cartaThorin, cartaGimli, cartaGlorfindel, cartaGaladriel, cartaGilGalad, cartaElrond, cartaArwen, cartaLuthien, cartaLegolas, cartaAlator, cartaPallando, cartaSaruman, cartaGandalfCinza, cartaGandalfBranco, cartaRadagast];
+	    	var cartaMaquina;
+	    	var cartaJogador;
 
 	    	var pontosJogador = 0;
 	    	var pontosMaquina = 0;
+			
+	    	function atualizaPlacar() {
+	    		document.querySelector("#placar").innerHTML = `Jogador ${pontosJogador} | ${pontosMaquina} Sauron.`;
+	    	}
 
-	    atualizaPlacar();
-	    atualizaQuantidadeDeCartas();
+	  		function atualizaQuantidadeDeCartas() {
+	    		document.querySelector("#quantidade-cartas").innerHTML = `Quantidade de cartas no jogo: ${cartas.length}.`
+	    	}
 
-	    function atualizaQuantidadeDeCartas() {
-	    	document.querySelector("#quantidade-cartas").innerHTML = `Quantidade de cartas no jogo: ${cartas.length}.`
-	    	//
-	    }
+	    	function posicao() {
+	    		return Math.floor(Math.random() * cartas.length);
+	    	}	
 
-	    function atualizaPlacar () {
-	    	document.querySelector("#placar").innerHTML = `Jogador ${pontosJogador} | ${pontosMaquina} Máquina.`;
-	    	
-	    }
+	    	function sortearCartas() {  
+	    		document.querySelector("#carta-jogador").classList.remove("tampar");
+	    		document.querySelector("#carta-maquina").classList.add("tampar");
+	    		document.querySelector("#resultado").innerHTML = "";
 
-	    function carta() {
-	    	return cartas[Math.round(Math.random() * cartas.length)];
-	    	
-	    }	    	
+	    		var posicaoCartaMaquina = posicao();
+	    		cartaMaquina = cartas[posicaoCartaMaquina];
+	    		cartas.splice(posicaoCartaMaquina, 1);
+	    		var posicaoCartaJogador = posicao();
+	    		cartaJogador = cartas[posicaoCartaJogador];
+	    		cartas.splice(posicaoCartaJogador, 1);
+	    		atualizaQuantidadeDeCartas();
 
-	    function sortearCartas() {  
-	    		cartasMaquina = carta();    		  		
-	    		cartas.splice(cartasMaquina, 1);
-
-	    		cartasJogador = carta();
-	    		cartas.splice(cartasJogador, 1);
-	    		
 	    		document.querySelector("#btnSortear").disabled = true;
 	    		document.querySelector("#btnJogar").disabled = false;
 
-	    		exibeCartasJogador();  		
-	    	} 
+	    		distribuiCartas();  		
+	    	}
 
-	   	function exibeCartasJogador() {
-	   		var divCartaJogador = document.querySelector("#carta-jogador");
-	   		var nome = `<p class="carta-subtitle">${cartasJogador.nome}</p>`;
-	   		var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png" style="width: inherit; height: inherit; position: absolute;">';
-	   		divCartaJogador.style.backgroundImage = `url(${cartasJogador.imagem})`;
-	   		var opcoesTexto = ""
+	    	function distribuiCartas() {
+	    		document.querySelector("#carta-jogador .nome").innerHTML = cartaJogador.nome;
+	    		document.querySelector("#carta-jogador .tipo").innerHTML = cartaJogador.tipo;
+	    		document.querySelector("#carta-jogador img").src = cartaJogador.imagem;
 
-	   		for (var atributo in cartasJogador.atributos) {
-			      opcoesTexto += "<input type='radio' name='atributo' value='" + atributo + "'>" + atributo + " " + cartasJogador.atributos[atributo] + "<br />";
-			   }
+	    		document.querySelector("#carta-jogador .forca").innerHTML = cartaJogador.atributos.forca;
+	    		document.querySelector("#carta-jogador .resiliencia").innerHTML = cartaJogador.atributos.resiliencia;
+	    		document.querySelector("#carta-jogador .poder").innerHTML = cartaJogador.atributos.poder;
+	    		document.querySelector("#carta-jogador .agilidade").innerHTML = cartaJogador.atributos.agilidade;
+	    		document.querySelector("#carta-jogador .coragem").innerHTML = cartaJogador.atributos.coragem;
 
-    			var html = '<div id="opcoes" class="carta-status">'
 
-	   		divCartaJogador.innerHTML = moldura + nome + html + opcoesTexto + '</div>';
-	   	}	
- 			   	 	
-   	 	/*function exibirOpcoes() {
-   	 		document.querySelector("#opcoes").classList.remove("esconder");
-   	 	}*/
+	    		document.querySelector("#carta-maquina .nome").innerHTML = cartaMaquina.nome;
+	    		document.querySelector("#carta-maquina .tipo").innerHTML = cartaMaquina.tipo;
+	    		document.querySelector("#carta-maquina img").src = cartaMaquina.imagem;
 
-   	 	function obtemAtributoSelecionado() {
-   	 		var inputSelecionado = document.querySelector("input[name=atributo]:checked");
+	    		document.querySelector("#carta-maquina .forca").innerHTML = cartaMaquina.atributos.forca;
+	    		document.querySelector("#carta-maquina .resiliencia").innerHTML = cartaMaquina.atributos.resiliencia;
+	    		document.querySelector("#carta-maquina .poder").innerHTML = cartaMaquina.atributos.poder;
+	    		document.querySelector("#carta-maquina .agilidade").innerHTML = cartaMaquina.atributos.agilidade;
+	    		document.querySelector("#carta-maquina .coragem").innerHTML = cartaMaquina.atributos.coragem;
+	    	}
 
-   	 		if (inputSelecionado == null) {
-   	 			alert("Escolha um atributo para jogar.");
-   	 		} else {
-   	 			return inputSelecionado.value;
-   	 		}
-   	 	}
+			function obtemAtributoSelecionado() {
+		 		var inputSelecionado = document.querySelector("input[name=atributo]:checked");
 
-   	 	function jogar() {
-   	 		var atributoSelecionado = obtemAtributoSelecionado();
-   	 		var atributoJogador = cartasJogador.atributos[atributoSelecionado];
-   	 		var atributoMaquina = cartasMaquina.atributos[atributoSelecionado];
+		 		if (inputSelecionado !== null) {
+		 			return inputSelecionado.value;
+		 		}
+		 	}
 
-   	 		var divResultado = document.querySelector("#resultado");
-   	 		var htmlResultado;
+	    	function jogar() {
+	    		var atributoSelecionado = obtemAtributoSelecionado();
+	    		if (!atributoSelecionado) {
+	    			alert("Selecione um atributo da sua carta.");
+	    			return;
+	    		}
 
-   	 		if (atributoJogador > atributoMaquina) {
-   	 			htmlResultado = '<p class="resultado-final">Você Venceu!</p>';   	 			
-   	 			pontosJogador++
+	    		document.querySelector("#carta-maquina").classList.remove("tampar");
+	    		document.querySelector("#btnSortear").disabled = false;
+	    		document.querySelector("#btnJogar").disabled = true;
 
-   	 		} else if (atributoJogador < atributoMaquina) {
-   	 			htmlResultado = '<p class="resultado-final">Você Perdeu!</p>';
-   	 			pontosMaquina++
+	    		var atributoJogador = cartaJogador.atributos[atributoSelecionado];
+	    		var atributoMaquina = cartaMaquina.atributos[atributoSelecionado];
 
-   	 		}else {
-   	 			htmlResultado = '<p class="resultado-final">Foi empate!</p>';   	 		
-   	 		}   
+	    		var resultado;
 
-   	 		if(cartas.length == 0) {
-   	 			alert("Fim de Jogo")
-   	 			if(pontosJogador > pontosMaquina) {
-   	 				htmlResultado = '<p class="resultado-final">Você Venceu!</p>';   	 			 	
-   	 			} else if (atributoJogador < atributoMaquina) {
-   	 			htmlResultado = '<p class="resultado-final">Você Perdeu!</p>';
-   	 			} else {
-   	 				htmlResultado = '<p class="resultado-final">Foi empate!</p>';
-   	 			}
-   	 		} else {
-   	 			document.querySelector("#btnProximaRodada").disabled = false;
-   	 		}
+	    		if (atributoJogador > atributoMaquina) {
+	    			resultado = "Você venceu!";
+	    			pontosJogador++;
+	    		} else if (atributoJogador < atributoMaquina) {
+	    			resultado = "Você perdeu!";
+	    			pontosMaquina++;
+	    		} else {
+	    			resultado = "Foi um empate!";
+	    		}
 
-   	 		divResultado.innerHTML = htmlResultado;
-   	 		   	 		
-   	 		atualizaPlacar();
-   	 		exibeCartaMaquina();
-   	 		atualizaQuantidadeDeCartas(); 		
-   	 	}
+	    		document.querySelector("#resultado").innerHTML = resultado;
+	    		atualizaPlacar();
 
-   	 	function exibeCartaMaquina() {
-   	 		var divCartaMaquina = document.querySelector("#carta-maquina");
-	   		var nome = `<p class="carta-subtitle">${cartasMaquina.nome}</p>`;
-	   		var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png" style="width: inherit; height: inherit; position: absolute;">';
-	   		divCartaMaquina.style.backgroundImage = `url(${cartasMaquina.imagem})`;
-	   		var opcoesTexto = ""
+	    		if (cartas.length === 0) {
+	    			document.querySelector("#btnSortear").disabled = true;
 
-	   		for (var atributo in cartasMaquina .atributos) {
-			      opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cartasMaquina.atributos[atributo] + "<br />";
-			   }
+	    			var resultadoFinal;
+	    			if (pontosJogador > pontosMaquina) {
+	    				resultadoFinal = "Você TRIUNFOU!";
+	    			} else if (pontosJogador < pontosMaquina) {
+	    				resultadoFinal = "Você FALHOU!";
+	    			} else {
+	    				resultadoFinal = "Esperemos a próxima Era!"
+	    			}
+	    			resultadoFinal += `
+	    				<br />
+	    				Recarregue a página para jogar novamente.
+	    			`;
+	    			document.querySelector("#resultado").innerHTML = resultadoFinal;
+	    		}
+	    	}
 
-    			var html = '<div id="opcoes" class="carta-status">'
+			/*
+			document.querySelector("#btnFadeIn").onclick = mostraIntro;
+			document.querySelector("#btnFadeOut").onclick = escondeIntro;
+			document.querySelector("#btnTeste").onclick = escreveElfico;
+			*/
 
-	   		divCartaMaquina.innerHTML = moldura + nome + html + opcoesTexto + '</div>';
-   	 	}
+			var btnJogar = document.querySelector("#btnJogar");
+			btnJogar.disabled = true;
+			btnJogar.onclick = jogar;
+			document.querySelector("#btnSortear").onclick = sortearCartas;
 
-   	 	function proximaRodada() {
-   	 		var divCartas = document.querySelector("#cartas");
+	    	atualizaPlacar();
+	    	atualizaQuantidadeDeCartas();
+	    	escreveElfico();
+		</script>
 
-   	 		divCartas.innerHTML = `<div id="carta-jogador" class="carta"></div> <div id="carta-maquina" class="carta"></div>`;
-
-   	 		document.querySelector("#btnSortear").disabled = false;
-   	 		document.querySelector("#btnJogar").disabled = true;
-   	 		document.querySelector("#btnProximaRodada").disabled = true;
-
-   	 		var divResultado = document.querySelector("#resultado");
-   	 		divResultado.innerHTML = "";
-   	 	}
-
-   	 	//Botões//
-   	 	
-		   var btnJogar = document.querySelector("#btnJogar");
-
-		   btnJogar.onclick = jogar;
-		   btnJogar.disabled = true;
-		  
-   	 	   document.querySelector("#btnSortear").onclick = sortearCartas;
-
-	   </script>
-   </body>
+	</body>
 </html>
+
+
+
