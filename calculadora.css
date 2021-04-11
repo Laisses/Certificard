@@ -1,0 +1,111 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Yatra One', cursive;
+}
+
+body {
+	background-image: url("material/background-calc.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: #314743;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+form {
+	position: relative;
+	display: grid;				
+}
+
+form .value {
+	grid-column: span 4;
+	height: 60px;
+	text-align: right;
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 18px;
+}
+
+form span {
+	display: grid;
+	width: 60px;
+	height: 60px;
+	color: #b8ae93;
+	background: #314743;
+	place-items: center;
+	border: 1px solid rgba(18, 39, 43, 0.1);
+	user-select: none;
+}
+
+form span:active {
+	background: #2D7366;
+	color: #ffffff;
+}
+
+form span:hover, form span:active {
+	cursor: pointer;
+}
+
+
+form span.clear {
+	grid-column: span 2;
+	width: 120px;
+	background: #bf8b5E;
+	color: #403932;
+}
+
+form span.clear:active {
+	background-color: #755539;
+	color: #857566;
+}
+
+form span.mais {
+	grid-row: span 2;
+	height: 120px;
+}
+
+form span.igual {
+	background: #b7A88d;
+	color: #403932;
+	font-size: 20px;
+}
+
+form span.igual:active {
+	background: #6b6354;
+	color: #ccbeaf;				
+}
+
+.foto {
+	width: 20px;
+	vertical-align: top;
+	margin-right: 5px;				
+}							
+
+.certificard {
+	text-align: center;
+}
+
+.certificard a {
+	background-color: rgba(183, 168, 141, 0.8);				
+	margin-top: 5px;
+	margin-bottom: 10px;
+	padding: 5px;
+	font-size: 15px;
+	position: absolute;
+	bottom: 0;
+}
+
+.certificard a:link, .certificard a:visited {
+  text-decoration: none;
+  color: #314743;
+}
+
+.certificard a:hover, a:active {
+	color: #314743;
+	font-weight: bold;
+}		
