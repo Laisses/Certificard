@@ -1,0 +1,123 @@
+body {		
+	background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5)), url("material/book-library-with-open-textbook.png");
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-color: #120a38;
+	background-position: center top;
+	text-align: center;
+	font-family: 'Indie Flower', cursive;
+	color: #151033;
+}		
+
+section h1 {
+	font-size: 40px;					
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	margin-bottom: 10px;
+}
+
+section h2 {
+	font-size: 30px;
+	margin-top: 5px;
+}
+
+section p {
+	font-weight: normal;
+	font-size: 25px;
+}
+
+main {
+	font-family: 'Raleway', sans-serif;
+}
+
+.btnIniciar {
+	width: 15%;
+	padding: 10px;
+}
+
+q {
+	display: block;
+	margin: 10px;
+	font-size: 25px;
+	padding-bottom: 10px;
+}
+
+.chute {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+input {
+	border-radius: 5px;
+	background-color: #c4b3b3;
+	padding: 5px;
+}
+
+input:focus {
+	outline: none;
+		box-shadow: 0 0 0 2px #464160;
+}
+
+.botao {
+	border: none;
+	border-radius: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 15px;
+	width: 20%;
+	background-color: #8c6f6f;
+	color: #ffffff;
+	transition: 0.8s background-color;
+	cursor: pointer;
+	margin: 10px 5px;
+	outline: none;
+}
+
+.botao:hover, .botao:active {
+	background-color: #5c4147;
+}
+
+.botao:active {
+	box-shadow: 0 0 0 2px #5c4147;
+}
+
+#btnResponder {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+#resultado {
+	background-color: rgba(255,192,203, 0.4);
+	font-size: 25px;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #d1cbcb;
+}
+
+a:hover, a:active {
+  color: #d1cbcb;
+  font-weight: bold;
+}
+
+.foto {
+	width: 25px;
+	vertical-align: top;
+	margin-right: 5px;
+}
+
+footer {
+	font-size: 20px;
+	font-style: bold;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	background-color: rgba(38, 14, 14, 0.5);
+	padding: 5px;				
+}
