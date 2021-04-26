@@ -26,5 +26,3 @@ document.querySelector("#resultado").classList.remove("esconder");
 }
 
 document.querySelector("#btnCalcular").onclick = calcularViagem;
-
-calcularViagem();
