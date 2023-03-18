@@ -1,4 +1,4 @@
-# Certificard
+# [Certificard](https://laisses.org/Certificard/)
 
 
 ## Sobre
@@ -18,7 +18,7 @@ A versão original dos projetos entregues pela Alura pode ser encontrado nas bra
 Ao abrir o link da descrição você será redirecionado para a página principal do projeto. Lá você encontrará uma lista contendo links para as aplicações da imersão.
 
 
-### Conversor de Moedas:
+### [Conversor de Moedas](https://laisses.org/Certificard/conversor-viagem.html)
 
 **Objetivo**: Criar um programa que peça para o usuário fornecer um valor em dólar, e a partir desse valor o programa deve exibir na tela o equivalente em real.
 
@@ -27,7 +27,7 @@ Ao abrir o link da descrição você será redirecionado para a página principa
 **O que eu fiz**: Uma página que calcula o valor de uma viagem para a Nova Zelândia. Você escolhe o número de dias da viagem, o tipo de passagem, acomodação, refeição, transporte e quais atividades regionais você gostaria de fazer, e a aplicação te devolve o valor em reais da sua viagem. Destaque: Eu utilizei radio buttons e os estilizei.
 
 
-### Calculadora:
+### [Calculadora](https://laisses.org/Certificard/calculadora.html)
 
 **Objetivo**: Criar um programa que pergunte e armazene dois valores e o usuário escolha qual operação matemática deseja realizar com um número. Por exemplo: para somar a pessoa teria que digitar 1, para subtrair 2, etc. Usando `prompt()` e `alert()`.
 
@@ -36,7 +36,7 @@ Ao abrir o link da descrição você será redirecionado para a página principa
 **O que eu fiz**: Uma página com uma calculadora funcional com botões que faz as operações de soma, subtração, multiplicação e divisão.
 
 
-### Mentalista:
+### [Mentalista](https://laisses.org/Certificard/ditado-popular.html)
 
 **Objetivo**: Criar um programa que sorteia um número secreto entre 0 e 10, em que o usuário possui três tentativas para acertar esse número usando `prompt()`.
 
@@ -45,7 +45,7 @@ Ao abrir o link da descrição você será redirecionado para a página principa
 **O que eu fiz**: Um jogo onde o usuário tem que acertar a última palavra de um ditado popular. O destaque desse projeto é que ele aceita palavras maiúsculas ou minúsculas, com ou sem acento e o *Enter* funciona para conferir o resultado.
 
 
-### AluraFlix
+### [AluraFlix](https://laisses.org/Certificard/tecflix.html)
 
 **Objetivo**: Criar um programa que permite listar alguns filmes em formato de imagem.
 
@@ -54,7 +54,7 @@ Ao abrir o link da descrição você será redirecionado para a página principa
 **O que eu fiz**: Eu fiz o Tecflix, uma página que indica filmes com temática de tecnologia. Você pode filtrar os filmes por gênero e ao clicar na imagem abre um pop-up com o trailer do filme em questão.
 
 
-### Tabela de Classificação
+### [Tabela de Classificação](https://laisses.org/Certificard/classificacao-cubo-magico.html)
 
 **Objetivo**: Criar um programa que mostre uma tabela informando as vitórias, empates, derrotas e a quantidade de pontos.
 
@@ -63,7 +63,7 @@ Ao abrir o link da descrição você será redirecionado para a página principa
 **O que eu fiz**: Uma tabela de classificação de competição de cubo mágico. Você coloca os tempos do competidor, o programa faz os cálculos pertinentes, salva os resultados (em memória) e gera uma lista com os três primeiros colocados.
 
 
-### Super Trunfo:
+### [Super Trunfo](https://laisses.org/Certificard/trunfo-do-anel.html)
 
 **Objetivo**: Criar uma versão do jogo Super Trunfo, implementando a lógica de comparação dos atributos das cartas.
 
